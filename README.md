@@ -32,5 +32,5 @@
 ---
 
 <p align="center">
-  Entwickelt mit ❤️ von deinem Team.
+  Entwickelt mit ❤️ & ☕ von Paul
 </p>
