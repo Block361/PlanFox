@@ -1,18 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { createJob } from "@/app/lib/api";
+import { createJob } from "../api/jobs/api";
 
 export default function CreateJobPage() {
   const [title, setTitle] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await createJob({ title, startDate, endDate });
+      await createJob({ title, startDate, endDate , userId});
       setMessage("Job created successfully!");
       setTitle(""); setStartDate(""); setEndDate("");
     } catch (err) {

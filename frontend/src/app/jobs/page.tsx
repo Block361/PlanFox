@@ -25,12 +25,13 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(true);
   const [expandedJobId, setExpandedJobId] = useState<number | null>(null);
 
-  useEffect(() => {
-    fetch("/api/jobs")
-      .then(res => res.json())
-      .then(setJobs)
-      .finally(() => setLoading(false));
-  }, []);
+useEffect(() => {
+  fetch("http://localhost:3001/jobs")
+    .then(res => res.json())
+    .then(setJobs)
+    .finally(() => setLoading(false));
+}, []);
+
 
   if (loading) return <p>Loading...</p>;
 
@@ -54,10 +55,15 @@ export default function JobsPage() {
 
             {expandedJobId === job.id && (
               <div className="p-4 border-t bg-gray-50 dark:bg-gray-800 space-y-2">
-                <p><strong>Description:</strong> {job.description || "—"}</p>
+                <p><strong>ID:</strong> {job.id}</p>
+                <p><strong>Titel:</strong> {job.title}</p>
+                <p><strong>Beschreibung:</strong> {job.description}</p>
                 <p><strong>Status:</strong> {job.status}</p>
-                <p><strong>Start:</strong> {new Date(job.startDate).toLocaleDateString()}</p>
-                <p><strong>End:</strong> {new Date(job.endDate).toLocaleDateString()}</p>
+                <p><strong>User:</strong> {job.userName}</p>
+                <p><strong>Start:</strong> {job.startDate}</p>
+                <p><strong>Ende:</strong> {job.endDate}</p>
+                <pre>{JSON.stringify(job.articles, null, 2)}</pre>
+
                 {job.userName && <p><strong>Assigned to:</strong> {job.userName}</p>}
                 {job.articles && job.articles.length > 0 && (
                   <div className="mt-2">
