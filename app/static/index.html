@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventar – Veranstaltungstechnik</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f0f; --surface: #171717; --surface2: #1f1f1f;
+    --border: #2a2a2a; --accent: #d4f040; --accent2: #40f0a0;
+    --danger: #f04060; --text: #e8e8e0; --muted: #666;
+    --font-head: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; }
+  .shell { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+  nav { background: var(--surface); border-right: 1px solid var(--border); padding: 32px 0; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
+  .logo { font-family: var(--font-head); font-weight: 800; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); padding: 0 24px 32px; border-bottom: 1px solid var(--border); line-height: 1.4; }
+  .logo span { color: var(--muted); font-weight: 400; display: block; font-size: 10px; margin-top: 2px; }
+  nav ul { list-style: none; padding: 16px 0; flex: 1; }
+  nav ul li a { display: flex; align-items: center; gap: 10px; padding: 10px 24px; color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.05em; transition: all 0.15s; border-left: 2px solid transparent; }
+  nav ul li a:hover { color: var(--text); background: var(--surface2); }
+  nav ul li a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(212,240,64,0.05); }
+  nav ul li a .icon { font-size: 14px; width: 18px; text-align: center; }
+  .nav-section { font-size: 9px; letter-spacing: 0.2em; color: var(--muted); padding: 16px 24px 6px; text-transform: uppercase; }
+  main { padding: 40px 48px; overflow-y: auto; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .page-header { margin-bottom: 32px; }
+  .page-header h1 { font-family: var(--font-head); font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .page-header p { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; position: relative; overflow: hidden; }
+  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+  .stat.green::before { background: var(--accent2); }
+  .stat.red::before { background: var(--danger); }
+  .stat.gray::before { background: var(--muted); }
+  .stat-val { font-family: var(--font-head); font-size: 36px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 10px; color: var(--muted); margin-top: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+  .table-toolbar { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .search-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: var(--font-mono); font-size: 12px; padding: 8px 14px; outline: none; transition: border-color 0.15s; }
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 10px 16px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 500; }
+  td { padding: 12px 16px; border-bottom: 1px solid rgba(42,42,42,0.5); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+  .badge { display: inline-block; padding: 2px 8px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; }
+  .badge-gut { color: var(--accent2); border-color: rgba(64,240,160,0.3); background: rgba(64,240,160,0.05); }
+  .badge-aktiv { color: var(--accent); border-color: rgba(212,240,64,0.3); background: rgba(212,240,64,0.05); }
+  .badge-geplant { color: #a0a0f0; border-color: rgba(160,160,240,0.3); background: rgba(160,160,240,0.05); }
+  .badge-beschaedigt { color: var(--danger); border-color: rgba(240,64,96,0.3); background: rgba(240,64,96,0.05); }
+  .badge-rueck { color: var(--muted); border-color: var(--border); }
+  .avail { font-weight: 500; }
+  .avail.low { color: var(--danger); }
+  .avail.ok { color: var(--accent2); }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; cursor: pointer; border: 1px solid; transition: all 0.15s; text-transform: uppercase; }
+  .btn-primary { background: var(--accent); color: #0f0f0f; border-color: var(--accent); font-weight: 500; }
+  .btn-primary:hover { background: #c8e030; }
+  .btn-ghost { background: transparent; color: var(--muted); border-color: var(--border); }
+  .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+  .btn-danger { background: transparent; color: var(--danger); border-color: rgba(240,64,96,0.3); }
+  .btn-danger:hover { background: rgba(240,64,96,0.1); }
+  .btn-qr { background: transparent; color: var(--accent); border-color: rgba(212,240,64,0.3); }
+  .btn-qr:hover { background: rgba(212,240,64,0.08); }
+  .btn-sn { background: transparent; color: #a0c0ff; border-color: rgba(160,192,255,0.3); }
+  .btn-sn:hover { background: rgba(160,192,255,0.08); }
+  .btn-return { color: var(--accent2); border-color: rgba(64,240,160,0.3); background: transparent; }
+  .btn-return:hover { background: rgba(64,240,160,0.1); }
+  .btn-sm { padding: 4px 10px; font-size: 10px; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); width: 480px; max-width: 95vw; animation: slideUp 0.2s ease; }
+  @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+  .modal-header h2 { font-family: var(--font-head); font-size: 16px; font-weight: 600; }
+  .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .field input, .field select, .field textarea { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: var(--font-mono); font-size: 12px; padding: 9px 12px; outline: none; transition: border-color 0.15s; }
+  .field input:focus, .field select:focus { border-color: var(--accent); }
+  .field select option { background: var(--surface2); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 12px; }
+  .empty-icon { font-size: 32px; margin-bottom: 12px; }
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; }
+  #toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); padding: 12px 20px; font-size: 12px; transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 200; border-left: 3px solid var(--accent); }
+  #toast.show { transform: none; opacity: 1; }
+  #toast.error { border-left-color: var(--danger); }
+  .action-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .filter-row { display: flex; gap: 8px; }
+  /* SN list in modal */
+  .sn-list { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
+  .sn-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: var(--surface2); border: 1px solid var(--border); font-size: 11px; }
+  .sn-code { color: var(--accent); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav>
+    <div class="logo">VT–Inventar<span>Veranstaltungstechnik</span></div>
+    <ul>
+      <li class="nav-section">Übersicht</li>
+      <li><a href="#" class="active" data-page="dashboard"><span class="icon">◈</span> Dashboard</a></li>
+      <li class="nav-section">Verwaltung</li>
+      <li><a href="#" data-page="artikel"><span class="icon">▦</span> Artikel</a></li>
+      <li><a href="#" data-page="ausleihe"><span class="icon">⇄</span> Ausleihe</a></li>
+      <li><a href="#" data-page="jobs"><span class="icon">◎</span> Jobs</a></li>
+    </ul>
+  </nav>
+  <main>
+    <!-- Dashboard -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header"><h1>Dashboard</h1><p>Überblick über das Inventar</p></div>
+      <div class="stats">
+        <div class="stat"><div class="stat-val" id="stat-artikel">–</div><div class="stat-label">Artikel gesamt</div></div>
+        <div class="stat green"><div class="stat-val" id="stat-verfuegbar">–</div><div class="stat-label">Verfügbar</div></div>
+        <div class="stat red"><div class="stat-val" id="stat-ausgeliehen">–</div><div class="stat-label">Ausgeliehen</div></div>
+        <div class="stat gray"><div class="stat-val" id="stat-jobs">–</div><div class="stat-label">Aktive Jobs</div></div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-toolbar" style="justify-content:space-between">
+          <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">Aktive Ausleihen</span>
+        </div>
+        <div id="dash-ausleihen"><div class="loading">Lade...</div></div>
+      </div>
+    </div>
+
+    <!-- Artikel -->
+    <div class="page" id="page-artikel">
+      <div class="page-header"><h1>Artikel</h1><p>Equipment & Seriennummern verwalten</p></div>
+      <div class="action-bar">
+        <input class="search-input" id="artikel-search" placeholder="Suchen…" style="width:240px" oninput="filterArtikel()">
+        <button class="btn btn-primary" onclick="openModal('artikel')">+ Neuer Artikel</button>
+      </div>
+      <div class="table-wrap">
+        <div id="artikel-list"><div class="loading">Lade...</div></div>
+      </div>
+    </div>
+
+    <!-- Ausleihe -->
+    <div class="page" id="page-ausleihe">
+      <div class="page-header"><h1>Ausleihe</h1><p>Equipment verleihen und zurückbuchen</p></div>
+      <div class="action-bar">
+        <div class="filter-row">
+          <button class="btn btn-ghost btn-sm" id="filter-alle" onclick="loadAusleihen(false)">Alle</button>
+          <button class="btn btn-ghost btn-sm" id="filter-aktiv" onclick="loadAusleihen(true)">Nur aktive</button>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('ausleihe')">+ Neue Ausleihe</button>
+      </div>
+      <div class="table-wrap"><div id="ausleihe-list"><div class="loading">Lade...</div></div></div>
+    </div>
+
+    <!-- Jobs -->
+    <div class="page" id="page-jobs">
+      <div class="page-header"><h1>Jobs</h1><p>Veranstaltungen planen</p></div>
+      <div class="action-bar">
+        <div></div>
+        <button class="btn btn-primary" onclick="openModal('job')">+ Neuer Job</button>
+      </div>
+      <div class="table-wrap"><div id="jobs-list"><div class="loading">Lade...</div></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal: Artikel -->
+<div class="modal-overlay" id="modal-artikel">
+  <div class="modal">
+    <div class="modal-header"><h2>Neuer Artikel</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('artikel')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Name *</label><input id="a-name" placeholder="z.B. XLR-Kabel 10m"></div>
+      <div class="form-row">
+        <div class="field"><label>Menge</label><input id="a-menge" type="number" value="1" min="1"></div>
+        <div class="field"><label>Zustand</label><select id="a-zustand"><option value="gut">Gut</option><option value="beschaedigt">Beschädigt</option><option value="reparatur">In Reparatur</option></select></div>
+      </div>
+      <div class="field"><label>Lagerort</label><input id="a-lagerort" placeholder="z.B. Regal A1"></div>
+      <div class="field"><label>Anschaffungswert (€)</label><input id="a-wert" type="number" placeholder="Optional"></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--border);margin-top:4px">
+        <input type="checkbox" id="a-autosn" checked style="accent-color:var(--accent)">
+        <label for="a-autosn" style="font-size:11px;color:var(--muted);cursor:pointer">Seriennummern automatisch generieren</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('artikel')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="saveArtikel()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Seriennummern -->
+<div class="modal-overlay" id="modal-sn">
+  <div class="modal">
+    <div class="modal-header"><h2 id="sn-modal-title">Seriennummern</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('sn')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:flex;gap:8px;align-items:flex-end">
+        <div class="field" style="flex:1"><label>Weitere generieren</label><input id="sn-anzahl" type="number" value="1" min="1" max="100"></div>
+        <button class="btn btn-sn btn-sm" onclick="generiereSeriennummern()">Generieren</button>
+      </div>
+      <div class="sn-list" id="sn-list"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-qr" onclick="openQrPage()">⊞ QR-Labels drucken</button>
+      <button class="btn btn-ghost" onclick="closeModal('sn')">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Ausleihe -->
+<div class="modal-overlay" id="modal-ausleihe">
+  <div class="modal">
+    <div class="modal-header"><h2>Neue Ausleihe</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('ausleihe')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Artikel *</label><select id="au-artikel"></select></div>
+      <div class="field"><label>Entleiher *</label><input id="au-name" placeholder="Name"></div>
+      <div class="form-row">
+        <div class="field"><label>Menge</label><input id="au-menge" type="number" value="1" min="1"></div>
+        <div class="field"><label>Rückgabe geplant</label><input id="au-rueck" type="date"></div>
+      </div>
+      <div class="field"><label>Kontakt</label><input id="au-kontakt" placeholder="Tel / Email"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('ausleihe')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="saveAusleihe()">Ausleihen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Job -->
+<div class="modal-overlay" id="modal-job">
+  <div class="modal">
+    <div class="modal-header"><h2>Neuer Job</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('job')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Jobname *</label><input id="j-name" placeholder="z.B. Stadtfest 2025"></div>
+      <div class="field"><label>Kunde</label><input id="j-kunde" placeholder="Auftraggeber"></div>
+      <div class="field"><label>Veranstaltungsort</label><input id="j-ort" placeholder="Adresse / Location"></div>
+      <div class="form-row">
+        <div class="field"><label>Beginn</label><input id="j-beginn" type="datetime-local"></div>
+        <div class="field"><label>Ende</label><input id="j-ende" type="datetime-local"></div>
+      </div>
+      <div class="field"><label>Status</label><select id="j-status"><option value="geplant">Geplant</option><option value="aktiv">Aktiv</option><option value="abgeschlossen">Abgeschlossen</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('job')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="saveJob()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal: Artikel bearbeiten -->
+<div class="modal-overlay" id="modal-edit-artikel">
+  <div class="modal">
+    <div class="modal-header"><h2>Artikel bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-artikel')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Name *</label><input id="ea-name" placeholder="z.B. XLR-Kabel 10m"></div>
+      <div class="form-row">
+        <div class="field"><label>Menge gesamt</label><input id="ea-menge" type="number" min="1"></div>
+        <div class="field"><label>Verfügbar</label><input id="ea-verfuegbar" type="number" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Zustand</label>
+          <select id="ea-zustand">
+            <option value="gut">Gut</option>
+            <option value="beschaedigt">Beschädigt</option>
+            <option value="reparatur">In Reparatur</option>
+            <option value="ausgemustert">Ausgemustert</option>
+          </select>
+        </div>
+        <div class="field"><label>Anschaffungswert (€)</label><input id="ea-wert" type="number" placeholder="Optional"></div>
+      </div>
+      <div class="field"><label>Lagerort</label><input id="ea-lagerort" placeholder="z.B. Regal A1"></div>
+      <div class="field"><label>Seriennummer</label><input id="ea-serial" placeholder="Optional"></div>
+      <div class="field"><label>Beschreibung</label><textarea id="ea-beschreibung" rows="2" style="resize:vertical"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('edit-artikel')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="updateArtikel()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Ausleihe bearbeiten -->
+<div class="modal-overlay" id="modal-edit-ausleihe">
+  <div class="modal">
+    <div class="modal-header"><h2>Ausleihe bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-ausleihe')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Entleiher</label><input id="eau-name" placeholder="Name"></div>
+      <div class="field"><label>Kontakt</label><input id="eau-kontakt" placeholder="Tel / Email"></div>
+      <div class="form-row">
+        <div class="field"><label>Menge</label><input id="eau-menge" type="number" min="1"></div>
+        <div class="field"><label>Rückgabe geplant</label><input id="eau-rueck" type="date"></div>
+      </div>
+      <div class="field"><label>Notizen</label><textarea id="eau-notizen" rows="2" style="resize:vertical"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('edit-ausleihe')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="updateAusleihe()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Job bearbeiten -->
+<div class="modal-overlay" id="modal-edit-job">
+  <div class="modal">
+    <div class="modal-header"><h2>Job bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-job')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Jobname *</label><input id="ej-name"></div>
+      <div class="field"><label>Kunde</label><input id="ej-kunde"></div>
+      <div class="field"><label>Veranstaltungsort</label><input id="ej-ort"></div>
+      <div class="form-row">
+        <div class="field"><label>Beginn</label><input id="ej-beginn" type="datetime-local"></div>
+        <div class="field"><label>Ende</label><input id="ej-ende" type="datetime-local"></div>
+      </div>
+      <div class="field"><label>Status</label>
+        <select id="ej-status">
+          <option value="geplant">Geplant</option>
+          <option value="aktiv">Aktiv</option>
+          <option value="abgeschlossen">Abgeschlossen</option>
+          <option value="storniert">Storniert</option>
+        </select>
+      </div>
+      <div class="field"><label>Notizen</label><textarea id="ej-notizen" rows="2" style="resize:vertical"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('edit-job')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="updateJob()">Speichern</button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+const API = 'http://localhost:8000/api/v1';
+let artikelCache = [], artikelAll = [], currentSnArtikelId = null;
+
+// Navigation
+document.querySelectorAll('nav a[data-page]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const page = a.dataset.page;
+    document.querySelectorAll('nav a').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+    document.getElementById('page-' + page).classList.add('active');
+    if (page === 'dashboard') loadDashboard();
+    if (page === 'artikel') loadArtikel();
+    if (page === 'ausleihe') loadAusleihen(false);
+    if (page === 'jobs') loadJobs();
+  });
+});
+
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.detail || 'Fehler ' + res.status); }
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+function toast(msg, error = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'show' + (error ? ' error' : '');
+  setTimeout(() => t.className = '', 3000);
+}
+
+// Dashboard
+async function loadDashboard() {
+  const [artikel, ausleihen, jobs] = await Promise.all([api('/artikel/'), api('/ausleihen/?nur_aktiv=true'), api('/jobs/?status=aktiv')]);
+  artikelCache = artikel;
+  document.getElementById('stat-artikel').textContent = artikel.length;
+  document.getElementById('stat-verfuegbar').textContent = artikel.reduce((s,a) => s + a.menge_verfuegbar, 0);
+  document.getElementById('stat-ausgeliehen').textContent = artikel.reduce((s,a) => s + (a.menge_gesamt - a.menge_verfuegbar), 0);
+  document.getElementById('stat-jobs').textContent = jobs.length;
+  const el = document.getElementById('dash-ausleihen');
+  if (!ausleihen.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">◈</div>Keine aktiven Ausleihen</div>'; return; }
+  el.innerHTML = `<table><thead><tr><th>Artikel-ID</th><th>Entleiher</th><th>Menge</th><th>Rückgabe</th></tr></thead><tbody>${ausleihen.map(a=>`<tr><td>${a.artikel_id}</td><td>${a.entleiher_name}</td><td>${a.menge}</td><td>${a.rueckgabe_geplant?fmtDate(a.rueckgabe_geplant):'–'}</td></tr>`).join('')}</tbody></table>`;
+}
+
+// Artikel
+async function loadArtikel() {
+  const data = await api('/artikel/');
+  artikelAll = data; artikelCache = data;
+  renderArtikel(data);
+}
+
+function renderArtikel(data) {
+  const el = document.getElementById('artikel-list');
+  if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">▦</div>Keine Artikel vorhanden</div>'; return; }
+  el.innerHTML = `<table><thead><tr><th>#</th><th>Name</th><th>Verfügbar</th><th>Zustand</th><th>Lagerort</th><th>Seriennummern</th><th></th></tr></thead><tbody>${data.map(a=>`<tr>
+    <td style="color:var(--muted)">${a.id}</td>
+    <td><strong>${a.name}</strong></td>
+    <td class="avail ${a.menge_verfuegbar===0?'low':'ok'}">${a.menge_verfuegbar} / ${a.menge_gesamt}</td>
+    <td><span class="badge badge-${a.zustand==='gut'?'gut':'beschaedigt'}">${a.zustand}</span></td>
+    <td style="color:var(--muted)">${a.lagerort||'–'}</td>
+    <td>
+      <button class="btn btn-sn btn-sm" onclick="openSnModal(${a.id},'${a.name.replace(/'/g,"\\'")}')">⊟ S/N</button>
+      <button class="btn btn-qr btn-sm" onclick="window.open('/api/v1/einheiten/qr/${a.id}','_blank')">⊞ QR</button>
+    </td>
+    <td><button class="btn btn-danger btn-sm" onclick="deleteArtikel(${a.id})">✕</button></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function filterArtikel() {
+  const q = document.getElementById('artikel-search').value.toLowerCase();
+  renderArtikel(artikelAll.filter(a => a.name.toLowerCase().includes(q) || (a.lagerort||'').toLowerCase().includes(q)));
+}
+
+async function deleteArtikel(id) {
+  if (!confirm('Artikel löschen?')) return;
+  try { await api('/artikel/'+id, {method:'DELETE'}); toast('Artikel gelöscht'); loadArtikel(); }
+  catch(e) { toast(e.message, true); }
+}
+
+async function saveArtikel() {
+  const name = document.getElementById('a-name').value.trim();
+  if (!name) { toast('Name erforderlich', true); return; }
+  const menge = +document.getElementById('a-menge').value || 1;
+  const autoSn = document.getElementById('a-autosn').checked;
+  try {
+    const artikel = await api('/artikel/', { method: 'POST', body: JSON.stringify({
+      name, menge_gesamt: menge,
+      zustand: document.getElementById('a-zustand').value,
+      lagerort: document.getElementById('a-lagerort').value || null,
+      anschaffungswert: +document.getElementById('a-wert').value || null,
+    })});
+    if (autoSn) {
+      await api(`/einheiten/artikel/${artikel.id}/generieren?anzahl=${menge}`, {method:'POST'});
+      toast(`Artikel + ${menge} Seriennummer(n) angelegt ✓`);
+    } else {
+      toast('Artikel angelegt ✓');
+    }
+    closeModal('artikel'); loadArtikel();
+  } catch(e) { toast(e.message, true); }
+}
+
+// Seriennummern Modal
+async function openSnModal(artikelId, artikelName) {
+  currentSnArtikelId = artikelId;
+  document.getElementById('sn-modal-title').textContent = artikelName;
+  await loadSnList(artikelId);
+  openModal('sn');
+}
+
+async function loadSnList(artikelId) {
+  try {
+    const data = await api(`/einheiten/artikel/${artikelId}`);
+    const el = document.getElementById('sn-list');
+    if (!data.einheiten.length) {
+      el.innerHTML = '<div style="color:var(--muted);font-size:11px;padding:8px">Noch keine Seriennummern vorhanden.</div>';
+      return;
+    }
+    el.innerHTML = data.einheiten.map(e => `
+      <div class="sn-item">
+        <span class="sn-code">${e.seriennummer}</span>
+        <span class="badge badge-${e.zustand==='gut'?'gut':'beschaedigt'}">${e.zustand}</span>
+      </div>`).join('');
+  } catch(e) { toast(e.message, true); }
+}
+
+async function generiereSeriennummern() {
+  const anzahl = +document.getElementById('sn-anzahl').value || 1;
+  try {
+    await api(`/einheiten/artikel/${currentSnArtikelId}/generieren?anzahl=${anzahl}`, {method:'POST'});
+    toast(`${anzahl} Seriennummer(n) generiert ✓`);
+    await loadSnList(currentSnArtikelId);
+  } catch(e) { toast(e.message, true); }
+}
+
+function openQrPage() {
+  window.open(`/api/v1/einheiten/qr/${currentSnArtikelId}`, '_blank');
+}
+
+// Ausleihe
+async function loadAusleihen(nurAktiv = false) {
+  document.getElementById('filter-alle').className = 'btn btn-sm ' + (!nurAktiv ? 'btn-primary' : 'btn-ghost');
+  document.getElementById('filter-aktiv').className = 'btn btn-sm ' + (nurAktiv ? 'btn-primary' : 'btn-ghost');
+  const data = await api('/ausleihen/' + (nurAktiv ? '?nur_aktiv=true' : ''));
+  const el = document.getElementById('ausleihe-list');
+  if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">⇄</div>Keine Ausleihen</div>'; return; }
+  el.innerHTML = `<table><thead><tr><th>#</th><th>Artikel</th><th>Entleiher</th><th>Menge</th><th>Ausgeliehen</th><th>Rückgabe</th><th>Status</th><th></th></tr></thead><tbody>${data.map(a=>`<tr>
+    <td style="color:var(--muted)">${a.id}</td><td>${a.artikel_id}</td>
+    <td>${a.entleiher_name}${a.entleiher_kontakt?`<br><span style="color:var(--muted);font-size:10px">${a.entleiher_kontakt}</span>`:''}</td>
+    <td>${a.menge}</td><td>${fmtDate(a.ausgeliehen_am)}</td>
+    <td>${a.rueckgabe_geplant?fmtDate(a.rueckgabe_geplant):'–'}</td>
+    <td><span class="badge ${a.ist_aktiv?'badge-aktiv':'badge-rueck'}">${a.ist_aktiv?'Aktiv':'Zurück'}</span></td>
+    <td style="display:flex;gap:6px">${a.ist_aktiv?`<button class="btn btn-return btn-sm" onclick="rueckgabe(${a.id})">Rückgabe</button>`:''}<button class="btn btn-ghost btn-sm" onclick="editAusleihe(${a.id})">✎</button></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+async function rueckgabe(id) {
+  try { await api('/ausleihen/'+id+'/rueckgabe', {method:'POST'}); toast('Rückgabe gebucht ✓'); loadAusleihen(false); }
+  catch(e) { toast(e.message, true); }
+}
+
+async function saveAusleihe() {
+  const artikel_id = +document.getElementById('au-artikel').value;
+  const name = document.getElementById('au-name').value.trim();
+  if (!artikel_id || !name) { toast('Artikel und Name erforderlich', true); return; }
+  try {
+    await api('/ausleihen/', { method: 'POST', body: JSON.stringify({
+      artikel_id, entleiher_name: name,
+      menge: +document.getElementById('au-menge').value || 1,
+      entleiher_kontakt: document.getElementById('au-kontakt').value || null,
+      rueckgabe_geplant: document.getElementById('au-rueck').value || null,
+    })});
+    toast('Ausleihe angelegt ✓'); closeModal('ausleihe'); loadAusleihen(false);
+  } catch(e) { toast(e.message, true); }
+}
+
+// Jobs
+async function loadJobs() {
+  const data = await api('/jobs/');
+  const el = document.getElementById('jobs-list');
+  if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">◎</div>Keine Jobs vorhanden</div>'; return; }
+  el.innerHTML = `<table><thead><tr><th>#</th><th>Name</th><th>Kunde</th><th>Ort</th><th>Beginn</th><th>Ende</th><th>Status</th><th></th></tr></thead><tbody>${data.map(j=>`<tr>
+    <td style="color:var(--muted)">${j.id}</td><td><strong>${j.name}</strong></td>
+    <td>${j.kunde||'–'}</td><td style="color:var(--muted)">${j.veranstaltungsort||'–'}</td>
+    <td>${j.beginn?fmtDate(j.beginn):'–'}</td><td>${j.ende?fmtDate(j.ende):'–'}</td>
+    <td><span class="badge badge-${j.status}">${j.status}</span></td>
+    <td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editJob(${j.id})">✎</button><button class="btn btn-danger btn-sm" onclick="deleteJob(${j.id})">✕</button></td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+async function saveJob() {
+  const name = document.getElementById('j-name').value.trim();
+  if (!name) { toast('Name erforderlich', true); return; }
+  try {
+    await api('/jobs/', { method: 'POST', body: JSON.stringify({
+      name, kunde: document.getElementById('j-kunde').value || null,
+      veranstaltungsort: document.getElementById('j-ort').value || null,
+      beginn: document.getElementById('j-beginn').value || null,
+      ende: document.getElementById('j-ende').value || null,
+      status: document.getElementById('j-status').value,
+    })});
+    toast('Job angelegt ✓'); closeModal('job'); loadJobs();
+  } catch(e) { toast(e.message, true); }
+}
+
+async function deleteJob(id) {
+  if (!confirm('Job löschen?')) return;
+  try { await api('/jobs/'+id, {method:'DELETE'}); toast('Job gelöscht'); loadJobs(); }
+  catch(e) { toast(e.message, true); }
+}
+
+// Modal
+function openModal(type) {
+  if (type === 'ausleihe') {
+    const sel = document.getElementById('au-artikel');
+    sel.innerHTML = artikelCache.filter(a => a.menge_verfuegbar > 0).map(a => `<option value="${a.id}">${a.name} (${a.menge_verfuegbar} verf.)</option>`).join('');
+  }
+  document.getElementById('modal-' + type).classList.add('open');
+}
+function closeModal(type) { document.getElementById('modal-' + type).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+
+function fmtDate(s) { if (!s) return '–'; return new Date(s).toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit',year:'numeric'}); }
+
+
+// ── Edit: Artikel ────────────────────────────────
+let editArtikelId = null;
+async function editArtikel(id) {
+  const a = artikelAll.find(x => x.id === id) || await api('/artikel/' + id);
+  editArtikelId = id;
+  document.getElementById('ea-name').value = a.name;
+  document.getElementById('ea-menge').value = a.menge_gesamt;
+  document.getElementById('ea-verfuegbar').value = a.menge_verfuegbar;
+  document.getElementById('ea-zustand').value = a.zustand;
+  document.getElementById('ea-lagerort').value = a.lagerort || '';
+  document.getElementById('ea-serial').value = a.seriennummer || '';
+  document.getElementById('ea-wert').value = a.anschaffungswert || '';
+  document.getElementById('ea-beschreibung').value = a.beschreibung || '';
+  openModal('edit-artikel');
+}
+async function updateArtikel() {
+  const name = document.getElementById('ea-name').value.trim();
+  if (!name) { toast('Name erforderlich', true); return; }
+  try {
+    await api('/artikel/' + editArtikelId, { method: 'PATCH', body: JSON.stringify({
+      name,
+      menge_gesamt: +document.getElementById('ea-menge').value,
+      menge_verfuegbar: +document.getElementById('ea-verfuegbar').value,
+      zustand: document.getElementById('ea-zustand').value,
+      lagerort: document.getElementById('ea-lagerort').value || null,
+      seriennummer: document.getElementById('ea-serial').value || null,
+      anschaffungswert: +document.getElementById('ea-wert').value || null,
+      beschreibung: document.getElementById('ea-beschreibung').value || null,
+    })});
+    toast('Artikel aktualisiert ✓'); closeModal('edit-artikel'); loadArtikel();
+  } catch(e) { toast(e.message, true); }
+}
+
+// ── Edit: Ausleihe ───────────────────────────────
+let editAusleiheId = null;
+async function editAusleihe(id) {
+  const a = await api('/ausleihen/?limit=1000').then(list => list.find(x => x.id === id));
+  editAusleiheId = id;
+  document.getElementById('eau-name').value = a.entleiher_name;
+  document.getElementById('eau-kontakt').value = a.entleiher_kontakt || '';
+  document.getElementById('eau-menge').value = a.menge;
+  document.getElementById('eau-rueck').value = a.rueckgabe_geplant ? a.rueckgabe_geplant.split('T')[0] : '';
+  document.getElementById('eau-notizen').value = a.notizen || '';
+  openModal('edit-ausleihe');
+}
+async function updateAusleihe() {
+  try {
+    await api('/ausleihen/' + editAusleiheId, { method: 'PATCH', body: JSON.stringify({
+      entleiher_name: document.getElementById('eau-name').value,
+      entleiher_kontakt: document.getElementById('eau-kontakt').value || null,
+      menge: +document.getElementById('eau-menge').value,
+      rueckgabe_geplant: document.getElementById('eau-rueck').value || null,
+      notizen: document.getElementById('eau-notizen').value || null,
+    })});
+    toast('Ausleihe aktualisiert ✓'); closeModal('edit-ausleihe'); loadAusleihen(false);
+  } catch(e) { toast(e.message, true); }
+}
+
+// ── Edit: Job ────────────────────────────────────
+let editJobId = null;
+async function editJob(id) {
+  const j = await api('/jobs/' + id);
+  editJobId = id;
+  document.getElementById('ej-name').value = j.name;
+  document.getElementById('ej-kunde').value = j.kunde || '';
+  document.getElementById('ej-ort').value = j.veranstaltungsort || '';
+  document.getElementById('ej-beginn').value = j.beginn ? j.beginn.slice(0,16) : '';
+  document.getElementById('ej-ende').value = j.ende ? j.ende.slice(0,16) : '';
+  document.getElementById('ej-status').value = j.status;
+  document.getElementById('ej-notizen').value = j.notizen || '';
+  openModal('edit-job');
+}
+async function updateJob() {
+  const name = document.getElementById('ej-name').value.trim();
+  if (!name) { toast('Name erforderlich', true); return; }
+  try {
+    await api('/jobs/' + editJobId, { method: 'PATCH', body: JSON.stringify({
+      name,
+      kunde: document.getElementById('ej-kunde').value || null,
+      veranstaltungsort: document.getElementById('ej-ort').value || null,
+      beginn: document.getElementById('ej-beginn').value || null,
+      ende: document.getElementById('ej-ende').value || null,
+      status: document.getElementById('ej-status').value,
+      notizen: document.getElementById('ej-notizen').value || null,
+    })});
+    toast('Job aktualisiert ✓'); closeModal('edit-job'); loadJobs();
+  } catch(e) { toast(e.message, true); }
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

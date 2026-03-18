@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: inventar_db
+    environment:
+      POSTGRES_DB: inventar_db
+      POSTGRES_USER: inventar_user
+      POSTGRES_PASSWORD: inventar_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventar_user -d inventar_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: inventar_api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://inventar_user:inventar_pass@db:5432/inventar_db
+      DEBUG: "true"
+    volumes:
+      - .:/code
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

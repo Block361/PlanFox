@@ -1,36 +1,97 @@
-<h1 align="center">🦊 PlanFox</h1>
+# Veranstaltungstechnik Inventarsystem
 
-<p align="center">
-  <img src="https://imgur.com/fcu1jz2.png" alt="PlanFox Logo" width="250"/>
-</p>
+Inventarverwaltung für Veranstaltungstechnik (Kabel, Cases, Lautsprecher, …)  
+mit FastAPI, PostgreSQL, CLI und Export-Funktion.
 
-<h3 align="center">🚀 Plan smarter, work faster.</h3>
+## Schnellstart
 
-<p align="center">
-  <b>PlanFox</b> ist eine moderne All-in-One-Plattform für <b>Auftrags-, Inventar- und Einsatzplanung</b> –  
-  intuitiv, schnell und teamorientiert.
-</p>
+### 1. Abhängigkeiten installieren
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Umgebungsvariablen konfigurieren
+```bash
+cp .env.example .env
+# .env anpassen (DATABASE_URL, SECRET_KEY)
+```
+
+### 3. Datenbank initialisieren
+```bash
+# Option A: via CLI
+python -m cli.main init-db
+
+# Option B: via Alembic (produktiv empfohlen)
+alembic init migrations
+alembic revision --autogenerate -m "initial"
+alembic upgrade head
+```
+
+### 4. Server starten
+```bash
+uvicorn app.main:app --reload
+```
+API-Docs: http://localhost:8000/docs
 
 ---
 
-## 🌟 Features
+## CLI-Befehle
 
-- 📋 **Auftragsverwaltung leicht gemacht**  
-- 🧰 **Intelligente Inventarübersicht**  
-- 👥 **Teamorientierte Einsatzplanung**  
-- ⚡ **Schnelle, moderne Weboberfläche**
+```bash
+# Artikel
+python -m cli.main artikel liste
+python -m cli.main artikel liste --suche "Kabel" --verfuegbar
+python -m cli.main artikel neu
+python -m cli.main artikel export --format csv -o inventar.csv
+python -m cli.main artikel export --format pdf
+
+# Ausleihe
+python -m cli.main ausleihe liste --aktiv
+python -m cli.main ausleihe neu
+python -m cli.main ausleihe rueckgabe 42
+```
 
 ---
 
-## 🛠️ Tech Stack
+## API-Endpunkte
 
-- **Frontend:** React / Next.js  
-- **Backend:** Node.js / Express  
-- **Datenbank:** PostgreSQL / Prisma  
-- **Deployment:** Docker & CI/CD  
+| Methode | Pfad | Beschreibung |
+|---|---|---|
+| GET | /api/v1/artikel/ | Artikel auflisten (Filter: kategorie, zustand, suche) |
+| POST | /api/v1/artikel/ | Artikel anlegen |
+| PATCH | /api/v1/artikel/{id} | Artikel bearbeiten |
+| DELETE | /api/v1/artikel/{id} | Artikel löschen |
+| GET | /api/v1/artikel/export/csv | CSV-Export |
+| GET | /api/v1/artikel/export/pdf | PDF-Export |
+| GET | /api/v1/ausleihen/ | Ausleihen auflisten |
+| POST | /api/v1/ausleihen/ | Neue Ausleihe |
+| POST | /api/v1/ausleihen/{id}/rueckgabe | Rückgabe buchen |
+| GET | /api/v1/jobs/ | Jobs auflisten |
+| POST | /api/v1/jobs/ | Job anlegen |
+| PATCH | /api/v1/jobs/{id} | Job bearbeiten |
 
 ---
 
-<p align="center">
-  Entwickelt mit ❤️ & ☕ von Paul
-</p>
+## Tests ausführen
+```bash
+pytest tests/ -v
+```
+
+## Projektstruktur
+```
+inventar/
+├── app/
+│   ├── api/routers/     # FastAPI Router (artikel, ausleihe, jobs)
+│   ├── models/          # SQLAlchemy-Modelle
+│   ├── schemas/         # Pydantic-Schemas
+│   ├── services/        # Business Logic + Export
+│   ├── config.py        # Konfiguration (Settings)
+│   ├── database.py      # DB-Session
+│   └── main.py          # FastAPI App
+├── cli/
+│   └── main.py          # Click CLI-Tool
+├── tests/
+│   └── test_artikel.py
+├── requirements.txt
+└── .env.example
+```
