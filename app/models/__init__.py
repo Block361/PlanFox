@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy import (
     Column, Integer, String, Text, Float, Boolean,
-    DateTime, ForeignKey, Enum as SAEnum
+    DateTime, Date, ForeignKey, Enum as SAEnum
 )
 from sqlalchemy.orm import relationship, DeclarativeBase
 import enum
@@ -46,8 +46,31 @@ class Artikel(Base):
     lagerort = Column(String(200), nullable=True)
     anschaffungswert = Column(Float, nullable=True)
     kategorie_id = Column(Integer, ForeignKey("kategorien.id"), nullable=True)
+
+    # ── Technische Attribute ──────────────────────
+    laenge_m = Column(Float, nullable=True)                  # Länge in Metern
+    stecker_a = Column(String(100), nullable=True)           # z.B. "XLR-M", "Schuko", "Speakon 4-pol"
+    stecker_b = Column(String(100), nullable=True)           # z.B. "XLR-F", "Kaltgeräte", "Klinke 6,3mm"
+    ist_adapter = Column(Boolean, default=False)             # True wenn A ≠ B
+    leistung_w = Column(Float, nullable=True)                # Watt
+    spannung_v = Column(Float, nullable=True)                # Volt
+    impedanz_ohm = Column(Float, nullable=True)              # Ohm
+    kabeltyp = Column(String(100), nullable=True)            # z.B. "symmetrisch", "digital", "Multicore"
+    anzahl_kanaele = Column(Integer, nullable=True)          # für Multicore / Stagebox
+    schutzklasse_ip = Column(String(20), nullable=True)      # z.B. "IP65"
+    gewicht_kg = Column(Float, nullable=True)                # kg
+
+    # ── Hersteller & Verwaltung ───────────────────
+    hersteller = Column(String(200), nullable=True)
+    modell = Column(String(200), nullable=True)
+    farbe = Column(String(100), nullable=True)               # z.B. "schwarz", "rot (Rücklauf)"
+    kaufdatum = Column(Date, nullable=True)
+    garantie_bis = Column(Date, nullable=True)
+    wartungshinweis = Column(Text, nullable=True)            # z.B. "Stecker jährlich prüfen"
+
     erstellt_am = Column(DateTime, default=datetime.utcnow)
     aktualisiert_am = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
     kategorie = relationship("Kategorie", back_populates="artikel")
     ausleihen = relationship("Ausleihe", back_populates="artikel")
     einheiten = relationship("ArtikelEinheit", back_populates="artikel", cascade="all, delete-orphan")
@@ -56,7 +79,7 @@ class Artikel(Base):
 class Ausleihe(Base):
     __tablename__ = "ausleihen"
     id = Column(Integer, primary_key=True, index=True)
-    artikel_id = Column(Integer, ForeignKey("artikel.id"), nullable=False)
+    artikel_id = Column(Integer, ForeignKey("artikel.id"), nullable=True)
     job_id = Column(Integer, ForeignKey("jobs.id"), nullable=True)
     entleiher_name = Column(String(200), nullable=False)
     entleiher_kontakt = Column(String(200), nullable=True)

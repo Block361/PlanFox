@@ -1,27 +1,33 @@
-from datetime import datetime
+from datetime import datetime, date
 from typing import Optional
 from pydantic import BaseModel, Field
 from app.models import ArtikelZustand, JobStatus
 
 
-# ──────────────────────────────────────────────
-# Kategorie
-# ──────────────────────────────────────────────
 class KategorieCreate(BaseModel):
     name: str = Field(..., max_length=100)
     beschreibung: Optional[str] = None
 
-
 class KategorieOut(KategorieCreate):
     id: int
     erstellt_am: datetime
-
     model_config = {"from_attributes": True}
 
 
-# ──────────────────────────────────────────────
-# Artikel
-# ──────────────────────────────────────────────
+# ── Artikel ──────────────────────────────────────────────────
+_artikel_felder = dict(
+    name=None, seriennummer=None, beschreibung=None,
+    menge_gesamt=None, menge_verfuegbar=None,
+    zustand=None, lagerort=None, anschaffungswert=None, kategorie_id=None,
+    # Technisch
+    laenge_m=None, stecker_a=None, stecker_b=None, ist_adapter=None,
+    leistung_w=None, spannung_v=None, impedanz_ohm=None,
+    kabeltyp=None, anzahl_kanaele=None, schutzklasse_ip=None, gewicht_kg=None,
+    # Verwaltung
+    hersteller=None, modell=None, farbe=None,
+    kaufdatum=None, garantie_bis=None, wartungshinweis=None,
+)
+
 class ArtikelCreate(BaseModel):
     name: str = Field(..., max_length=200)
     seriennummer: Optional[str] = None
@@ -32,6 +38,25 @@ class ArtikelCreate(BaseModel):
     lagerort: Optional[str] = None
     anschaffungswert: Optional[float] = None
     kategorie_id: Optional[int] = None
+    # Technisch
+    laenge_m: Optional[float] = None
+    stecker_a: Optional[str] = None
+    stecker_b: Optional[str] = None
+    ist_adapter: bool = False
+    leistung_w: Optional[float] = None
+    spannung_v: Optional[float] = None
+    impedanz_ohm: Optional[float] = None
+    kabeltyp: Optional[str] = None
+    anzahl_kanaele: Optional[int] = None
+    schutzklasse_ip: Optional[str] = None
+    gewicht_kg: Optional[float] = None
+    # Verwaltung
+    hersteller: Optional[str] = None
+    modell: Optional[str] = None
+    farbe: Optional[str] = None
+    kaufdatum: Optional[date] = None
+    garantie_bis: Optional[date] = None
+    wartungshinweis: Optional[str] = None
 
 
 class ArtikelUpdate(BaseModel):
@@ -44,6 +69,24 @@ class ArtikelUpdate(BaseModel):
     lagerort: Optional[str] = None
     anschaffungswert: Optional[float] = None
     kategorie_id: Optional[int] = None
+    laenge_m: Optional[float] = None
+    stecker_a: Optional[str] = None
+    stecker_b: Optional[str] = None
+    ist_adapter: Optional[bool] = None
+    leistung_w: Optional[float] = None
+    spannung_v: Optional[float] = None
+    impedanz_ohm: Optional[float] = None
+    kabeltyp: Optional[str] = None
+    anzahl_kanaele: Optional[int] = None
+    schutzklasse_ip: Optional[str] = None
+    gewicht_kg: Optional[float] = None
+    hersteller: Optional[str] = None
+    modell: Optional[str] = None
+    farbe: Optional[str] = None
+    kaufdatum: Optional[date] = None
+    garantie_bis: Optional[date] = None
+    wartungshinweis: Optional[str] = None
+    beschreibung: Optional[str] = None
 
 
 class ArtikelOut(BaseModel):
@@ -57,15 +100,31 @@ class ArtikelOut(BaseModel):
     lagerort: Optional[str]
     anschaffungswert: Optional[float]
     kategorie: Optional[KategorieOut]
+    # Technisch
+    laenge_m: Optional[float]
+    stecker_a: Optional[str]
+    stecker_b: Optional[str]
+    ist_adapter: bool
+    leistung_w: Optional[float]
+    spannung_v: Optional[float]
+    impedanz_ohm: Optional[float]
+    kabeltyp: Optional[str]
+    anzahl_kanaele: Optional[int]
+    schutzklasse_ip: Optional[str]
+    gewicht_kg: Optional[float]
+    # Verwaltung
+    hersteller: Optional[str]
+    modell: Optional[str]
+    farbe: Optional[str]
+    kaufdatum: Optional[date]
+    garantie_bis: Optional[date]
+    wartungshinweis: Optional[str]
     erstellt_am: datetime
     aktualisiert_am: datetime
-
     model_config = {"from_attributes": True}
 
 
-# ──────────────────────────────────────────────
-# Ausleihe
-# ──────────────────────────────────────────────
+# ── Ausleihe ─────────────────────────────────────────────────
 class AusleiheCreate(BaseModel):
     artikel_id: int
     job_id: Optional[int] = None
@@ -75,10 +134,9 @@ class AusleiheCreate(BaseModel):
     rueckgabe_geplant: Optional[datetime] = None
     notizen: Optional[str] = None
 
-
 class AusleiheOut(BaseModel):
     id: int
-    artikel_id: int
+    artikel_id: Optional[int]
     job_id: Optional[int]
     entleiher_name: str
     entleiher_kontakt: Optional[str]
@@ -88,13 +146,10 @@ class AusleiheOut(BaseModel):
     zurueckgegeben_am: Optional[datetime]
     notizen: Optional[str]
     ist_aktiv: bool
-
     model_config = {"from_attributes": True}
 
 
-# ──────────────────────────────────────────────
-# Job
-# ──────────────────────────────────────────────
+# ── Job ──────────────────────────────────────────────────────
 class JobCreate(BaseModel):
     name: str = Field(..., max_length=200)
     beschreibung: Optional[str] = None
@@ -105,7 +160,6 @@ class JobCreate(BaseModel):
     kunde: Optional[str] = None
     notizen: Optional[str] = None
 
-
 class JobUpdate(BaseModel):
     name: Optional[str] = None
     beschreibung: Optional[str] = None
@@ -115,7 +169,6 @@ class JobUpdate(BaseModel):
     status: Optional[JobStatus] = None
     kunde: Optional[str] = None
     notizen: Optional[str] = None
-
 
 class JobOut(BaseModel):
     id: int
@@ -128,5 +181,4 @@ class JobOut(BaseModel):
     kunde: Optional[str]
     notizen: Optional[str]
     erstellt_am: datetime
-
     model_config = {"from_attributes": True}

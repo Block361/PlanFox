@@ -3,278 +3,401 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inventar – Veranstaltungstechnik</title>
+<title>VT–Inventar</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0f0f0f; --surface: #171717; --surface2: #1f1f1f;
-    --border: #2a2a2a; --accent: #d4f040; --accent2: #40f0a0;
-    --danger: #f04060; --text: #e8e8e0; --muted: #666;
-    --font-head: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; }
-  .shell { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
-  nav { background: var(--surface); border-right: 1px solid var(--border); padding: 32px 0; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
-  .logo { font-family: var(--font-head); font-weight: 800; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); padding: 0 24px 32px; border-bottom: 1px solid var(--border); line-height: 1.4; }
-  .logo span { color: var(--muted); font-weight: 400; display: block; font-size: 10px; margin-top: 2px; }
-  nav ul { list-style: none; padding: 16px 0; flex: 1; }
-  nav ul li a { display: flex; align-items: center; gap: 10px; padding: 10px 24px; color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.05em; transition: all 0.15s; border-left: 2px solid transparent; }
-  nav ul li a:hover { color: var(--text); background: var(--surface2); }
-  nav ul li a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(212,240,64,0.05); }
-  nav ul li a .icon { font-size: 14px; width: 18px; text-align: center; }
-  .nav-section { font-size: 9px; letter-spacing: 0.2em; color: var(--muted); padding: 16px 24px 6px; text-transform: uppercase; }
-  main { padding: 40px 48px; overflow-y: auto; }
-  .page { display: none; }
-  .page.active { display: block; }
-  .page-header { margin-bottom: 32px; }
-  .page-header h1 { font-family: var(--font-head); font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
-  .page-header p { color: var(--muted); font-size: 12px; margin-top: 4px; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
-  .stat { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; position: relative; overflow: hidden; }
-  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
-  .stat.green::before { background: var(--accent2); }
-  .stat.red::before { background: var(--danger); }
-  .stat.gray::before { background: var(--muted); }
-  .stat-val { font-family: var(--font-head); font-size: 36px; font-weight: 800; line-height: 1; }
-  .stat-label { font-size: 10px; color: var(--muted); margin-top: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
-  .table-wrap { background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
-  .table-toolbar { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
-  .search-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: var(--font-mono); font-size: 12px; padding: 8px 14px; outline: none; transition: border-color 0.15s; }
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--muted); }
-  table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  th { text-align: left; padding: 10px 16px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 500; }
-  td { padding: 12px 16px; border-bottom: 1px solid rgba(42,42,42,0.5); vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--surface2); }
-  .badge { display: inline-block; padding: 2px 8px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; }
-  .badge-gut { color: var(--accent2); border-color: rgba(64,240,160,0.3); background: rgba(64,240,160,0.05); }
-  .badge-aktiv { color: var(--accent); border-color: rgba(212,240,64,0.3); background: rgba(212,240,64,0.05); }
-  .badge-geplant { color: #a0a0f0; border-color: rgba(160,160,240,0.3); background: rgba(160,160,240,0.05); }
-  .badge-beschaedigt { color: var(--danger); border-color: rgba(240,64,96,0.3); background: rgba(240,64,96,0.05); }
-  .badge-rueck { color: var(--muted); border-color: var(--border); }
-  .avail { font-weight: 500; }
-  .avail.low { color: var(--danger); }
-  .avail.ok { color: var(--accent2); }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; cursor: pointer; border: 1px solid; transition: all 0.15s; text-transform: uppercase; }
-  .btn-primary { background: var(--accent); color: #0f0f0f; border-color: var(--accent); font-weight: 500; }
-  .btn-primary:hover { background: #c8e030; }
-  .btn-ghost { background: transparent; color: var(--muted); border-color: var(--border); }
-  .btn-ghost:hover { color: var(--text); border-color: var(--text); }
-  .btn-danger { background: transparent; color: var(--danger); border-color: rgba(240,64,96,0.3); }
-  .btn-danger:hover { background: rgba(240,64,96,0.1); }
-  .btn-qr { background: transparent; color: var(--accent); border-color: rgba(212,240,64,0.3); }
-  .btn-qr:hover { background: rgba(212,240,64,0.08); }
-  .btn-sn { background: transparent; color: #a0c0ff; border-color: rgba(160,192,255,0.3); }
-  .btn-sn:hover { background: rgba(160,192,255,0.08); }
-  .btn-return { color: var(--accent2); border-color: rgba(64,240,160,0.3); background: transparent; }
-  .btn-return:hover { background: rgba(64,240,160,0.1); }
-  .btn-sm { padding: 4px 10px; font-size: 10px; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--border); width: 480px; max-width: 95vw; animation: slideUp 0.2s ease; }
-  @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--border); }
-  .modal-header h2 { font-family: var(--font-head); font-size: 16px; font-weight: 600; }
-  .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-  .field input, .field select, .field textarea { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: var(--font-mono); font-size: 12px; padding: 9px 12px; outline: none; transition: border-color 0.15s; }
-  .field input:focus, .field select:focus { border-color: var(--accent); }
-  .field select option { background: var(--surface2); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .empty { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 12px; }
-  .empty-icon { font-size: 32px; margin-bottom: 12px; }
-  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 11px; letter-spacing: 0.1em; }
-  #toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); padding: 12px 20px; font-size: 12px; transform: translateY(80px); opacity: 0; transition: all 0.3s; z-index: 200; border-left: 3px solid var(--accent); }
-  #toast.show { transform: none; opacity: 1; }
-  #toast.error { border-left-color: var(--danger); }
-  .action-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-  .filter-row { display: flex; gap: 8px; }
-  /* SN list in modal */
-  .sn-list { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
-  .sn-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: var(--surface2); border: 1px solid var(--border); font-size: 11px; }
-  .sn-code { color: var(--accent); letter-spacing: 0.1em; }
+:root{--bg:#0f0f0f;--surface:#171717;--surface2:#1f1f1f;--surface3:#252525;--border:#2a2a2a;--border2:#333;--accent:#d4f040;--accent2:#40f0a0;--danger:#f04060;--warn:#f0a040;--text:#e8e8e0;--muted:#666;--muted2:#444;--font-head:'Syne',sans-serif;--font-mono:'DM Mono',monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-mono);min-height:100vh;}
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+nav{background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;overflow-y:auto;}
+.logo{font-family:var(--font-head);font-weight:800;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);padding:24px 24px 20px;border-bottom:1px solid var(--border);line-height:1.4;}
+.logo span{color:var(--muted);font-weight:400;display:block;font-size:10px;margin-top:3px;}
+nav ul{list-style:none;padding:12px 0;flex:1;}
+nav ul li a{display:flex;align-items:center;gap:10px;padding:9px 24px;color:var(--muted);font-size:12px;letter-spacing:.04em;transition:all .12s;border-left:2px solid transparent;text-decoration:none;}
+nav ul li a:hover{color:var(--text);background:var(--surface2);}
+nav ul li a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(212,240,64,.05);}
+nav ul li a .icon{font-size:13px;width:18px;text-align:center;}
+.nav-sec{font-size:9px;letter-spacing:.2em;color:var(--muted2);padding:14px 24px 4px;text-transform:uppercase;}
+main{padding:36px 44px;overflow-y:auto;}
+.page{display:none;}.page.active{display:block;}
+.ph{margin-bottom:28px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.ph-left h1{font-family:var(--font-head);font-size:26px;font-weight:800;letter-spacing:-.02em;}
+.ph-left p{color:var(--muted);font-size:11px;margin-top:3px;}
+.ph-actions{display:flex;gap:8px;flex-shrink:0;}
+.bc{font-size:11px;color:var(--muted);margin-bottom:16px;}
+.bc span{cursor:pointer;transition:color .12s;}.bc span:hover{color:var(--text);}
+.bc .sep{margin:0 6px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;}
+.stat{background:var(--surface);border:1px solid var(--border);padding:18px 20px;position:relative;overflow:hidden;}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);}
+.stat.green::before{background:var(--accent2);}.stat.red::before{background:var(--danger);}.stat.warn::before{background:var(--warn);}.stat.gray::before{background:var(--muted);}
+.stat-val{font-family:var(--font-head);font-size:32px;font-weight:800;line-height:1;}
+.stat-label{font-size:10px;color:var(--muted);margin-top:5px;letter-spacing:.1em;text-transform:uppercase;}
+.table-wrap{background:var(--surface);border:1px solid var(--border);overflow:hidden;}
+.table-toolbar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{text-align:left;padding:9px 14px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:500;white-space:nowrap;}
+td{padding:11px 14px;border-bottom:1px solid rgba(42,42,42,.5);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr.clickable:hover td{background:var(--surface2);cursor:pointer;}
+tr:hover td{background:var(--surface2);}
+.badge{display:inline-block;padding:2px 8px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;border:1px solid;}
+.badge-gut{color:var(--accent2);border-color:rgba(64,240,160,.3);background:rgba(64,240,160,.05);}
+.badge-aktiv{color:var(--accent);border-color:rgba(212,240,64,.3);background:rgba(212,240,64,.05);}
+.badge-geplant{color:#a0a0f0;border-color:rgba(160,160,240,.3);background:rgba(160,160,240,.05);}
+.badge-abgeschlossen{color:var(--muted);border-color:var(--border);}
+.badge-storniert{color:var(--danger);border-color:rgba(240,64,96,.3);}
+.badge-beschaedigt,.badge-reparatur{color:var(--warn);border-color:rgba(240,160,64,.3);background:rgba(240,160,64,.05);}
+.badge-ausgemustert{color:var(--danger);border-color:rgba(240,64,96,.3);}
+.badge-rueck{color:var(--muted);border-color:var(--border);}
+.avail.low{color:var(--danger);font-weight:500;}.avail.ok{color:var(--accent2);font-weight:500;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;cursor:pointer;border:1px solid;transition:all .12s;text-transform:uppercase;background:transparent;}
+.btn-primary{background:var(--accent);color:#0f0f0f;border-color:var(--accent);font-weight:500;}.btn-primary:hover{background:#c8e030;}
+.btn-ghost{color:var(--muted);border-color:var(--border);}.btn-ghost:hover{color:var(--text);border-color:var(--text);}
+.btn-danger{color:var(--danger);border-color:rgba(240,64,96,.3);}.btn-danger:hover{background:rgba(240,64,96,.1);}
+.btn-return{color:var(--accent2);border-color:rgba(64,240,160,.3);}.btn-return:hover{background:rgba(64,240,160,.08);}
+.btn-sm{padding:4px 9px;font-size:10px;}.btn-xs{padding:2px 7px;font-size:9px;}
+.detail-grid{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start;}
+.card{background:var(--surface);border:1px solid var(--border);padding:20px 22px;margin-bottom:16px;}
+.card-title{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.kv-grid{display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:12px;}
+.kv-key{color:var(--muted);}.kv-val{color:var(--text);}
+.sn-grid{display:flex;flex-wrap:wrap;gap:7px;}
+.sn-pill{background:var(--surface2);border:1px solid var(--border2);padding:4px 10px;font-size:11px;letter-spacing:.05em;display:flex;align-items:center;gap:7px;}
+.action-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.filter-row{display:flex;gap:8px;}
+.search-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:12px;padding:7px 12px;outline:none;transition:border-color .12s;}
+.search-input:focus{border-color:var(--accent);}.search-input::placeholder{color:var(--muted);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);width:500px;max-width:96vw;max-height:90vh;overflow-y:auto;animation:su .18s ease;}
+@keyframes su{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;}
+.modal-header h2{font-family:var(--font-head);font-size:16px;font-weight:600;}
+.modal-body{padding:22px;display:flex;flex-direction:column;gap:14px;}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+.field input,.field select,.field textarea{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:12px;padding:8px 11px;outline:none;transition:border-color .12s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);}
+.field select option{background:var(--surface2);}.field textarea{resize:vertical;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cal-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.cal-header h2{font-family:var(--font-head);font-size:18px;font-weight:700;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);}
+.cal-day-name{background:var(--surface);text-align:center;padding:8px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+.cal-cell{background:var(--surface);min-height:88px;padding:7px;position:relative;}
+.cal-cell.other-month .cal-num{color:var(--muted2);}
+.cal-cell.today{background:var(--surface2);}.cal-cell.today .cal-num{color:var(--accent);font-weight:500;}
+.cal-num{font-size:11px;margin-bottom:4px;}
+.cal-event{padding:2px 5px;font-size:9px;margin-bottom:2px;cursor:pointer;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-left:2px solid;}
+.cal-event.geplant{color:#a0a0f0;border-color:#a0a0f0;background:rgba(160,160,240,.08);}
+.cal-event.aktiv{color:var(--accent2);border-color:var(--accent2);background:rgba(64,240,160,.08);}
+.cal-event.abgeschlossen{color:var(--muted);border-color:var(--muted);background:rgba(102,102,102,.08);}
+.cal-event.storniert{color:var(--danger);border-color:var(--danger);background:rgba(240,64,96,.08);}
+.empty{text-align:center;padding:50px 20px;color:var(--muted);font-size:12px;}
+.empty-icon{font-size:28px;margin-bottom:10px;}
+.loading{text-align:center;padding:36px;color:var(--muted);font-size:11px;letter-spacing:.1em;}
+#toast{position:fixed;bottom:22px;right:22px;background:var(--surface);border:1px solid var(--border);padding:11px 18px;font-size:12px;transform:translateY(70px);opacity:0;transition:all .25s;z-index:200;border-left:3px solid var(--accent);}
+#toast.show{transform:none;opacity:1;}#toast.error{border-left-color:var(--danger);}
 </style>
 </head>
 <body>
 <div class="shell">
-  <nav>
-    <div class="logo">VT–Inventar<span>Veranstaltungstechnik</span></div>
-    <ul>
-      <li class="nav-section">Übersicht</li>
-      <li><a href="#" class="active" data-page="dashboard"><span class="icon">◈</span> Dashboard</a></li>
-      <li class="nav-section">Verwaltung</li>
-      <li><a href="#" data-page="artikel"><span class="icon">▦</span> Artikel</a></li>
-      <li><a href="#" data-page="ausleihe"><span class="icon">⇄</span> Ausleihe</a></li>
-      <li><a href="#" data-page="jobs"><span class="icon">◎</span> Jobs</a></li>
-    </ul>
-  </nav>
-  <main>
-    <!-- Dashboard -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-header"><h1>Dashboard</h1><p>Überblick über das Inventar</p></div>
-      <div class="stats">
-        <div class="stat"><div class="stat-val" id="stat-artikel">–</div><div class="stat-label">Artikel gesamt</div></div>
-        <div class="stat green"><div class="stat-val" id="stat-verfuegbar">–</div><div class="stat-label">Verfügbar</div></div>
-        <div class="stat red"><div class="stat-val" id="stat-ausgeliehen">–</div><div class="stat-label">Ausgeliehen</div></div>
-        <div class="stat gray"><div class="stat-val" id="stat-jobs">–</div><div class="stat-label">Aktive Jobs</div></div>
-      </div>
-      <div class="table-wrap">
-        <div class="table-toolbar" style="justify-content:space-between">
-          <span style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">Aktive Ausleihen</span>
-        </div>
-        <div id="dash-ausleihen"><div class="loading">Lade...</div></div>
-      </div>
-    </div>
+<nav>
+  <div class="logo">VT–Inventar<span>Veranstaltungstechnik</span></div>
+  <ul>
+    <li class="nav-sec">Übersicht</li>
+    <li><a href="#" class="active" data-page="dashboard"><span class="icon">◈</span> Dashboard</a></li>
+    <li class="nav-sec">Verwaltung</li>
+    <li><a href="#" data-page="artikel"><span class="icon">▦</span> Artikel</a></li>
+    <li><a href="#" data-page="ausleihe"><span class="icon">⇄</span> Ausleihe</a></li>
+    <li><a href="#" data-page="jobs"><span class="icon">◎</span> Jobs</a></li>
+    <li class="nav-sec">Planung</li>
+    <li><a href="#" data-page="kalender"><span class="icon">▣</span> Kalender</a></li>
+    <li class="nav-sec">Daten</li>
+    <li><a href="#" data-page="io"><span class="icon">⇅</span> Import / Export</a></li>
+  </ul>
+</nav>
+<main>
 
-    <!-- Artikel -->
-    <div class="page" id="page-artikel">
-      <div class="page-header"><h1>Artikel</h1><p>Equipment & Seriennummern verwalten</p></div>
-      <div class="action-bar">
-        <input class="search-input" id="artikel-search" placeholder="Suchen…" style="width:240px" oninput="filterArtikel()">
-        <button class="btn btn-primary" onclick="openModal('artikel')">+ Neuer Artikel</button>
-      </div>
-      <div class="table-wrap">
-        <div id="artikel-list"><div class="loading">Lade...</div></div>
-      </div>
-    </div>
-
-    <!-- Ausleihe -->
-    <div class="page" id="page-ausleihe">
-      <div class="page-header"><h1>Ausleihe</h1><p>Equipment verleihen und zurückbuchen</p></div>
-      <div class="action-bar">
-        <div class="filter-row">
-          <button class="btn btn-ghost btn-sm" id="filter-alle" onclick="loadAusleihen(false)">Alle</button>
-          <button class="btn btn-ghost btn-sm" id="filter-aktiv" onclick="loadAusleihen(true)">Nur aktive</button>
-        </div>
-        <button class="btn btn-primary" onclick="openModal('ausleihe')">+ Neue Ausleihe</button>
-      </div>
-      <div class="table-wrap"><div id="ausleihe-list"><div class="loading">Lade...</div></div></div>
-    </div>
-
-    <!-- Jobs -->
-    <div class="page" id="page-jobs">
-      <div class="page-header"><h1>Jobs</h1><p>Veranstaltungen planen</p></div>
-      <div class="action-bar">
-        <div></div>
-        <button class="btn btn-primary" onclick="openModal('job')">+ Neuer Job</button>
-      </div>
-      <div class="table-wrap"><div id="jobs-list"><div class="loading">Lade...</div></div></div>
-    </div>
-  </main>
+<div class="page active" id="page-dashboard">
+  <div class="ph"><div class="ph-left"><h1>Dashboard</h1><p>Überblick Inventar &amp; Ausleihen</p></div></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-val" id="st-artikel">–</div><div class="stat-label">Artikel</div></div>
+    <div class="stat green"><div class="stat-val" id="st-verf">–</div><div class="stat-label">Verfügbar</div></div>
+    <div class="stat red"><div class="stat-val" id="st-aus">–</div><div class="stat-label">Ausgeliehen</div></div>
+    <div class="stat warn"><div class="stat-val" id="st-jobs">–</div><div class="stat-label">Offene Jobs</div></div>
+  </div>
+  <div class="table-wrap">
+    <div class="table-toolbar"><span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Aktive Ausleihen</span></div>
+    <div id="dash-aus"><div class="loading">Lade…</div></div>
+  </div>
 </div>
 
-<!-- Modal: Artikel -->
+<div class="page" id="page-artikel">
+  <div class="ph">
+    <div class="ph-left"><h1>Artikel</h1><p>Equipment mit Seriennummern</p></div>
+    <div class="ph-actions"><button class="btn btn-primary" onclick="openModal('artikel')">+ Neuer Artikel</button></div>
+  </div>
+  <div class="action-bar">
+    <input class="search-input" id="art-search" placeholder="Suchen…" style="width:260px" oninput="filterArtikel()">
+  </div>
+  <div class="table-wrap"><div id="art-list"><div class="loading">Lade…</div></div></div>
+</div>
+
+<div class="page" id="page-artikel-detail">
+  <div class="bc"><span onclick="nav('artikel')">Artikel</span><span class="sep">›</span><span id="ad-bc-name" style="color:var(--text)"></span></div>
+  <div class="ph">
+    <div class="ph-left"><h1 id="ad-name"></h1><p id="ad-sub"></p></div>
+    <div class="ph-actions">
+      <button class="btn btn-ghost" onclick="openEditArtikel(currentArtikelId)">✎ Bearbeiten</button>
+      <button class="btn btn-danger" onclick="deleteArtikelAndBack(currentArtikelId)">✕ Löschen</button>
+    </div>
+  </div>
+  <div class="detail-grid">
+    <div>
+      <div class="card"><div class="card-title">Details</div><div class="kv-grid" id="ad-kv"></div></div>
+      <div class="card">
+        <div class="card-title">Seriennummern &amp; Einheiten</div>
+        <div class="sn-grid" id="ad-sn"></div>
+        <div style="margin-top:14px;display:flex;gap:8px;align-items:center;">
+          <input id="ad-sn-n" type="number" value="1" min="1" max="50" style="width:64px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:12px;padding:6px 10px;outline:none;">
+          <button class="btn btn-ghost btn-sm" onclick="genSN()">+ Generieren</button>
+          <button class="btn btn-ghost btn-sm" onclick="window.open('/api/v1/einheiten/drucken/'+currentArtikelId,'_blank')">⊞ QR drucken</button>
+        </div>
+      </div>
+      <div class="card"><div class="card-title">Ausleihen</div><div id="ad-ausleihen"><div class="loading">Lade…</div></div></div>
+    </div>
+    <div>
+      <div class="card"><div class="card-title">Verfügbarkeit</div><div id="ad-avail" style="font-size:12px;"></div></div>
+      <div class="card">
+        <div class="card-title">Aktionen</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openAusleiheForArtikel(currentArtikelId)">+ Ausleihen</button>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="window.open('/api/v1/einheiten/drucken/'+currentArtikelId,'_blank')">⊞ QR-Labels drucken</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-ausleihe">
+  <div class="ph">
+    <div class="ph-left"><h1>Ausleihe</h1><p>Equipment verleihen &amp; zurückbuchen</p></div>
+    <div class="ph-actions"><button class="btn btn-primary" onclick="openModal('ausleihe')">+ Neue Ausleihe</button></div>
+  </div>
+  <div class="action-bar">
+    <div class="filter-row">
+      <button class="btn btn-ghost btn-sm" id="f-alle" onclick="loadAusleihen(false)">Alle</button>
+      <button class="btn btn-ghost btn-sm" id="f-aktiv" onclick="loadAusleihen(true)">Nur aktive</button>
+    </div>
+  </div>
+  <div class="table-wrap"><div id="aus-list"><div class="loading">Lade…</div></div></div>
+</div>
+
+<div class="page" id="page-jobs">
+  <div class="ph">
+    <div class="ph-left"><h1>Jobs</h1><p>Veranstaltungen verwalten</p></div>
+    <div class="ph-actions"><button class="btn btn-primary" onclick="openModal('job')">+ Neuer Job</button></div>
+  </div>
+  <div class="table-wrap"><div id="jobs-list"><div class="loading">Lade…</div></div></div>
+</div>
+
+<div class="page" id="page-job-detail">
+  <div class="bc"><span onclick="nav('jobs')">Jobs</span><span class="sep">›</span><span id="jd-bc-name" style="color:var(--text)"></span></div>
+  <div class="ph">
+    <div class="ph-left"><h1 id="jd-name"></h1><p id="jd-sub"></p></div>
+    <div class="ph-actions">
+      <button class="btn btn-ghost" onclick="openEditJobModal(currentJobId)">✎ Bearbeiten</button>
+      <button class="btn btn-danger" onclick="deleteJobAndBack(currentJobId)">✕ Löschen</button>
+    </div>
+  </div>
+  <div class="detail-grid">
+    <div>
+      <div class="card"><div class="card-title">Details</div><div class="kv-grid" id="jd-kv"></div></div>
+      <div class="card">
+        <div class="card-title">Equipment für diesen Job</div>
+        <div id="jd-equipment"><div class="loading">Lade…</div></div>
+        <div style="margin-top:12px;"><button class="btn btn-ghost btn-sm" onclick="openAusleiheForJob(currentJobId)">+ Equipment hinzufügen</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">Status &amp; Aktionen</div>
+        <div id="jd-status-info" style="font-size:12px;margin-bottom:14px;"></div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <button class="btn btn-ghost btn-sm" style="justify-content:center;" onclick="setJobStatus(currentJobId,'aktiv')">→ Aktiv setzen</button>
+          <button class="btn btn-ghost btn-sm" style="justify-content:center;" onclick="setJobStatus(currentJobId,'abgeschlossen')">✓ Abschließen</button>
+          <button class="btn btn-danger btn-sm" style="justify-content:center;" onclick="setJobStatus(currentJobId,'storniert')">✕ Stornieren</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-kalender">
+  <div class="ph"><div class="ph-left"><h1>Kalender</h1><p>Jobs im Monatsüberblick</p></div></div>
+  <div class="cal-header">
+    <button class="btn btn-ghost btn-sm" onclick="calPrev()">‹</button>
+    <h2 id="cal-title"></h2>
+    <button class="btn btn-ghost btn-sm" onclick="calNext()">›</button>
+    <button class="btn btn-ghost btn-sm" onclick="calToday()" style="margin-left:8px;">Heute</button>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+</div>
+
+<div class="page" id="page-io">
+  <div class="ph"><div class="ph-left"><h1>Import / Export</h1><p>.vtinv – Veranstaltungstechnik Inventory Format</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div class="card">
+      <div class="card-title">Export – Artikel als .vtinv speichern</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Exportiert alle Artikel inkl. Seriennummern, technischen Daten und Einheiten.</p>
+      <div class="field" style="margin-bottom:14px;">
+        <label>Artikel-IDs (leer = alle)</label>
+        <input id="io-export-ids" placeholder="z.B. 1,2,5 – oder leer lassen für alle">
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doExport()">⬇ Exportieren</button>
+    </div>
+    <div class="card">
+      <div class="card-title">Import – .vtinv Datei laden</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Importiert Artikel aus einer .vtinv Datei. Bestehende Artikel können übersprungen oder aktualisiert werden.</p>
+      <div class="field" style="margin-bottom:10px;">
+        <label>Datei auswählen</label>
+        <input type="file" id="io-file" accept=".vtinv" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:12px;padding:7px 11px;outline:none;" onchange="doVorschau()">
+      </div>
+      <div class="field" style="flex-direction:row;align-items:center;gap:10px;margin-bottom:14px;">
+        <input type="checkbox" id="io-overwrite" style="width:16px;height:16px;accent-color:var(--accent)">
+        <label style="font-size:12px;text-transform:none;letter-spacing:0;color:var(--text);">Bestehende Artikel aktualisieren</label>
+      </div>
+      <div id="io-preview" style="margin-bottom:14px;"></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doImport()">⬆ Importieren</button>
+    </div>
+  </div>
+  <div id="io-result" style="margin-top:20px;"></div>
+</div>
+</main>
+</div>
+
+<!-- Modals -->
 <div class="modal-overlay" id="modal-artikel">
   <div class="modal">
     <div class="modal-header"><h2>Neuer Artikel</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('artikel')">✕</button></div>
     <div class="modal-body">
+      <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Allgemein</div>
       <div class="field"><label>Name *</label><input id="a-name" placeholder="z.B. XLR-Kabel 10m"></div>
       <div class="form-row">
         <div class="field"><label>Menge</label><input id="a-menge" type="number" value="1" min="1"></div>
         <div class="field"><label>Zustand</label><select id="a-zustand"><option value="gut">Gut</option><option value="beschaedigt">Beschädigt</option><option value="reparatur">In Reparatur</option></select></div>
       </div>
-      <div class="field"><label>Lagerort</label><input id="a-lagerort" placeholder="z.B. Regal A1"></div>
-      <div class="field"><label>Anschaffungswert (€)</label><input id="a-wert" type="number" placeholder="Optional"></div>
-      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--border);margin-top:4px">
-        <input type="checkbox" id="a-autosn" checked style="accent-color:var(--accent)">
-        <label for="a-autosn" style="font-size:11px;color:var(--muted);cursor:pointer">Seriennummern automatisch generieren</label>
+      <div class="form-row">
+        <div class="field"><label>Lagerort</label><input id="a-lagerort" placeholder="Regal A1"></div>
+        <div class="field"><label>Farbe / Markierung</label><input id="a-farbe" placeholder="schwarz, rot…"></div>
       </div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 4px;border-top:1px solid var(--border);padding-top:10px;">Technisch</div>
+      <div class="form-row">
+        <div class="field"><label>Stecker A</label><input id="a-stecker-a" placeholder="XLR-M, Schuko…"></div>
+        <div class="field"><label>Stecker B</label><input id="a-stecker-b" placeholder="XLR-F, Klinke…"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Länge (m)</label><input id="a-laenge" type="number" step="0.1" placeholder="z.B. 10"></div>
+        <div class="field"><label>Kabeltyp</label><input id="a-kabeltyp" placeholder="symmetrisch, digital…"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Leistung (W)</label><input id="a-leistung" type="number" placeholder=""></div>
+        <div class="field"><label>Spannung (V)</label><input id="a-spannung" type="number" placeholder=""></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Impedanz (Ω)</label><input id="a-impedanz" type="number" placeholder=""></div>
+        <div class="field"><label>Kanäle</label><input id="a-kanaele" type="number" placeholder="z.B. 8 für Multicore"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Schutzklasse (IP)</label><input id="a-ip" placeholder="IP65…"></div>
+        <div class="field"><label>Gewicht (kg)</label><input id="a-gewicht" type="number" step="0.1" placeholder=""></div>
+      </div>
+      <div class="field" style="flex-direction:row;align-items:center;gap:10px;">
+        <input type="checkbox" id="a-adapter" style="width:16px;height:16px;accent-color:var(--accent)">
+        <label style="font-size:12px;text-transform:none;letter-spacing:0;color:var(--text);">Ist Adapter (Stecker A ≠ Stecker B)</label>
+      </div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 4px;border-top:1px solid var(--border);padding-top:10px;">Hersteller &amp; Verwaltung</div>
+      <div class="form-row">
+        <div class="field"><label>Hersteller</label><input id="a-hersteller" placeholder="Neutrik, Sommer…"></div>
+        <div class="field"><label>Modell</label><input id="a-modell" placeholder=""></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Anschaffungswert (€)</label><input id="a-wert" type="number" placeholder="0"></div>
+        <div class="field"><label>Kaufdatum</label><input id="a-kaufdatum" type="date"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Garantie bis</label><input id="a-garantie" type="date"></div>
+        <div class="field"></div>
+      </div>
+      <div class="field"><label>Beschreibung</label><textarea id="a-beschr" rows="2"></textarea></div>
+      <div class="field"><label>Wartungshinweis</label><textarea id="a-wartung" rows="2" placeholder="z.B. Stecker jährlich prüfen"></textarea></div>
+      <div style="font-size:10px;color:var(--muted);border-left:2px solid var(--border2);padding-left:10px;">Seriennummern werden automatisch generiert – z.B. XLR-10M-001 … XLR-10M-00N</div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('artikel')">Abbrechen</button>
-      <button class="btn btn-primary" onclick="saveArtikel()">Speichern</button>
+      <button class="btn btn-primary" onclick="saveArtikel()">Anlegen</button>
     </div>
   </div>
 </div>
 
-<!-- Modal: Seriennummern -->
-<div class="modal-overlay" id="modal-sn">
-  <div class="modal">
-    <div class="modal-header"><h2 id="sn-modal-title">Seriennummern</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('sn')">✕</button></div>
-    <div class="modal-body">
-      <div style="display:flex;gap:8px;align-items:flex-end">
-        <div class="field" style="flex:1"><label>Weitere generieren</label><input id="sn-anzahl" type="number" value="1" min="1" max="100"></div>
-        <button class="btn btn-sn btn-sm" onclick="generiereSeriennummern()">Generieren</button>
-      </div>
-      <div class="sn-list" id="sn-list"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-qr" onclick="openQrPage()">⊞ QR-Labels drucken</button>
-      <button class="btn btn-ghost" onclick="closeModal('sn')">Schließen</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Ausleihe -->
-<div class="modal-overlay" id="modal-ausleihe">
-  <div class="modal">
-    <div class="modal-header"><h2>Neue Ausleihe</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('ausleihe')">✕</button></div>
-    <div class="modal-body">
-      <div class="field"><label>Artikel *</label><select id="au-artikel"></select></div>
-      <div class="field"><label>Entleiher *</label><input id="au-name" placeholder="Name"></div>
-      <div class="form-row">
-        <div class="field"><label>Menge</label><input id="au-menge" type="number" value="1" min="1"></div>
-        <div class="field"><label>Rückgabe geplant</label><input id="au-rueck" type="date"></div>
-      </div>
-      <div class="field"><label>Kontakt</label><input id="au-kontakt" placeholder="Tel / Email"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('ausleihe')">Abbrechen</button>
-      <button class="btn btn-primary" onclick="saveAusleihe()">Ausleihen</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Job -->
-<div class="modal-overlay" id="modal-job">
-  <div class="modal">
-    <div class="modal-header"><h2>Neuer Job</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('job')">✕</button></div>
-    <div class="modal-body">
-      <div class="field"><label>Jobname *</label><input id="j-name" placeholder="z.B. Stadtfest 2025"></div>
-      <div class="field"><label>Kunde</label><input id="j-kunde" placeholder="Auftraggeber"></div>
-      <div class="field"><label>Veranstaltungsort</label><input id="j-ort" placeholder="Adresse / Location"></div>
-      <div class="form-row">
-        <div class="field"><label>Beginn</label><input id="j-beginn" type="datetime-local"></div>
-        <div class="field"><label>Ende</label><input id="j-ende" type="datetime-local"></div>
-      </div>
-      <div class="field"><label>Status</label><select id="j-status"><option value="geplant">Geplant</option><option value="aktiv">Aktiv</option><option value="abgeschlossen">Abgeschlossen</option></select></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('job')">Abbrechen</button>
-      <button class="btn btn-primary" onclick="saveJob()">Speichern</button>
-    </div>
-  </div>
-</div>
-
-
-<!-- Modal: Artikel bearbeiten -->
 <div class="modal-overlay" id="modal-edit-artikel">
   <div class="modal">
     <div class="modal-header"><h2>Artikel bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-artikel')">✕</button></div>
     <div class="modal-body">
-      <div class="field"><label>Name *</label><input id="ea-name" placeholder="z.B. XLR-Kabel 10m"></div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Allgemein</div>
+      <div class="field"><label>Name *</label><input id="ea-name"></div>
       <div class="form-row">
         <div class="field"><label>Menge gesamt</label><input id="ea-menge" type="number" min="1"></div>
-        <div class="field"><label>Verfügbar</label><input id="ea-verfuegbar" type="number" min="0"></div>
+        <div class="field"><label>Verfügbar</label><input id="ea-verf" type="number" min="0"></div>
       </div>
       <div class="form-row">
-        <div class="field"><label>Zustand</label>
-          <select id="ea-zustand">
-            <option value="gut">Gut</option>
-            <option value="beschaedigt">Beschädigt</option>
-            <option value="reparatur">In Reparatur</option>
-            <option value="ausgemustert">Ausgemustert</option>
-          </select>
-        </div>
-        <div class="field"><label>Anschaffungswert (€)</label><input id="ea-wert" type="number" placeholder="Optional"></div>
+        <div class="field"><label>Zustand</label><select id="ea-zustand"><option value="gut">Gut</option><option value="beschaedigt">Beschädigt</option><option value="reparatur">In Reparatur</option><option value="ausgemustert">Ausgemustert</option></select></div>
+        <div class="field"><label>Farbe / Markierung</label><input id="ea-farbe"></div>
       </div>
-      <div class="field"><label>Lagerort</label><input id="ea-lagerort" placeholder="z.B. Regal A1"></div>
-      <div class="field"><label>Seriennummer</label><input id="ea-serial" placeholder="Optional"></div>
-      <div class="field"><label>Beschreibung</label><textarea id="ea-beschreibung" rows="2" style="resize:vertical"></textarea></div>
+      <div class="form-row">
+        <div class="field"><label>Lagerort</label><input id="ea-lagerort"></div>
+        <div class="field"><label>Wert (€)</label><input id="ea-wert" type="number"></div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 4px;border-top:1px solid var(--border);padding-top:10px;">Technisch</div>
+      <div class="form-row">
+        <div class="field"><label>Stecker A</label><input id="ea-stecker-a"></div>
+        <div class="field"><label>Stecker B</label><input id="ea-stecker-b"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Länge (m)</label><input id="ea-laenge" type="number" step="0.1"></div>
+        <div class="field"><label>Kabeltyp</label><input id="ea-kabeltyp"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Leistung (W)</label><input id="ea-leistung" type="number"></div>
+        <div class="field"><label>Spannung (V)</label><input id="ea-spannung" type="number"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Impedanz (Ω)</label><input id="ea-impedanz" type="number"></div>
+        <div class="field"><label>Kanäle</label><input id="ea-kanaele" type="number"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Schutzklasse (IP)</label><input id="ea-ip"></div>
+        <div class="field"><label>Gewicht (kg)</label><input id="ea-gewicht" type="number" step="0.1"></div>
+      </div>
+      <div class="field" style="flex-direction:row;align-items:center;gap:10px;">
+        <input type="checkbox" id="ea-adapter" style="width:16px;height:16px;accent-color:var(--accent)">
+        <label style="font-size:12px;text-transform:none;letter-spacing:0;color:var(--text);">Ist Adapter</label>
+      </div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin:6px 0 4px;border-top:1px solid var(--border);padding-top:10px;">Hersteller &amp; Verwaltung</div>
+      <div class="form-row">
+        <div class="field"><label>Hersteller</label><input id="ea-hersteller"></div>
+        <div class="field"><label>Modell</label><input id="ea-modell"></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Kaufdatum</label><input id="ea-kaufdatum" type="date"></div>
+        <div class="field"><label>Garantie bis</label><input id="ea-garantie" type="date"></div>
+      </div>
+      <div class="field"><label>Beschreibung</label><textarea id="ea-beschr" rows="2"></textarea></div>
+      <div class="field"><label>Wartungshinweis</label><textarea id="ea-wartung" rows="2"></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('edit-artikel')">Abbrechen</button>
@@ -283,18 +406,38 @@
   </div>
 </div>
 
-<!-- Modal: Ausleihe bearbeiten -->
+<div class="modal-overlay" id="modal-ausleihe">
+  <div class="modal">
+    <div class="modal-header"><h2>Neue Ausleihe</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('ausleihe')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Artikel *</label><select id="au-art"></select></div>
+      <div class="field"><label>Job (optional)</label><select id="au-job"><option value="">– Kein Job –</option></select></div>
+      <div class="field"><label>Entleiher *</label><input id="au-name" placeholder="Name"></div>
+      <div class="form-row">
+        <div class="field"><label>Menge</label><input id="au-menge" type="number" value="1" min="1"></div>
+        <div class="field"><label>Rückgabe geplant</label><input id="au-rueck" type="date"></div>
+      </div>
+      <div class="field"><label>Kontakt</label><input id="au-kontakt" placeholder="Tel / Email"></div>
+      <div class="field"><label>Notizen</label><textarea id="au-notizen" rows="2"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('ausleihe')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="saveAusleihe()">Ausleihen</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-edit-ausleihe">
   <div class="modal">
     <div class="modal-header"><h2>Ausleihe bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-ausleihe')">✕</button></div>
     <div class="modal-body">
-      <div class="field"><label>Entleiher</label><input id="eau-name" placeholder="Name"></div>
-      <div class="field"><label>Kontakt</label><input id="eau-kontakt" placeholder="Tel / Email"></div>
+      <div class="field"><label>Entleiher</label><input id="eau-name"></div>
+      <div class="field"><label>Kontakt</label><input id="eau-kontakt"></div>
       <div class="form-row">
         <div class="field"><label>Menge</label><input id="eau-menge" type="number" min="1"></div>
         <div class="field"><label>Rückgabe geplant</label><input id="eau-rueck" type="date"></div>
       </div>
-      <div class="field"><label>Notizen</label><textarea id="eau-notizen" rows="2" style="resize:vertical"></textarea></div>
+      <div class="field"><label>Notizen</label><textarea id="eau-notizen" rows="2"></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('edit-ausleihe')">Abbrechen</button>
@@ -303,27 +446,39 @@
   </div>
 </div>
 
-<!-- Modal: Job bearbeiten -->
+<div class="modal-overlay" id="modal-job">
+  <div class="modal">
+    <div class="modal-header"><h2>Neuer Job</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('job')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Name *</label><input id="j-name" placeholder="z.B. Stadtfest 2025"></div>
+      <div class="field"><label>Kunde</label><input id="j-kunde"></div>
+      <div class="field"><label>Ort</label><input id="j-ort"></div>
+      <div class="form-row">
+        <div class="field"><label>Beginn</label><input id="j-beginn" type="datetime-local"></div>
+        <div class="field"><label>Ende</label><input id="j-ende" type="datetime-local"></div>
+      </div>
+      <div class="field"><label>Notizen</label><textarea id="j-notizen" rows="2"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('job')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="saveJob()">Anlegen</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-edit-job">
   <div class="modal">
     <div class="modal-header"><h2>Job bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-job')">✕</button></div>
     <div class="modal-body">
-      <div class="field"><label>Jobname *</label><input id="ej-name"></div>
+      <div class="field"><label>Name *</label><input id="ej-name"></div>
       <div class="field"><label>Kunde</label><input id="ej-kunde"></div>
-      <div class="field"><label>Veranstaltungsort</label><input id="ej-ort"></div>
+      <div class="field"><label>Ort</label><input id="ej-ort"></div>
       <div class="form-row">
         <div class="field"><label>Beginn</label><input id="ej-beginn" type="datetime-local"></div>
         <div class="field"><label>Ende</label><input id="ej-ende" type="datetime-local"></div>
       </div>
-      <div class="field"><label>Status</label>
-        <select id="ej-status">
-          <option value="geplant">Geplant</option>
-          <option value="aktiv">Aktiv</option>
-          <option value="abgeschlossen">Abgeschlossen</option>
-          <option value="storniert">Storniert</option>
-        </select>
-      </div>
-      <div class="field"><label>Notizen</label><textarea id="ej-notizen" rows="2" style="resize:vertical"></textarea></div>
+      <div class="field"><label>Status</label><select id="ej-status"><option value="geplant">Geplant</option><option value="aktiv">Aktiv</option><option value="abgeschlossen">Abgeschlossen</option><option value="storniert">Storniert</option></select></div>
+      <div class="field"><label>Notizen</label><textarea id="ej-notizen" rows="2"></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('edit-job')">Abbrechen</button>
@@ -331,323 +486,438 @@
     </div>
   </div>
 </div>
+
 <div id="toast"></div>
 
 <script>
-const API = 'http://localhost:8000/api/v1';
-let artikelCache = [], artikelAll = [], currentSnArtikelId = null;
+const API='http://localhost:8000/api/v1';
+let artikelCache=[],artikelAll=[],jobsAll=[];
+let currentArtikelId=null,currentJobId=null;
+let editArtikelId=null,editAusleiheId=null,editJobId=null;
+let ausleiheForArtikel=null,ausleiheForJob=null;
+let calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
 
-// Navigation
-document.querySelectorAll('nav a[data-page]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const page = a.dataset.page;
-    document.querySelectorAll('nav a').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-    a.classList.add('active');
-    document.getElementById('page-' + page).classList.add('active');
-    if (page === 'dashboard') loadDashboard();
-    if (page === 'artikel') loadArtikel();
-    if (page === 'ausleihe') loadAusleihen(false);
-    if (page === 'jobs') loadJobs();
-  });
-});
-
-async function api(path, opts = {}) {
-  const res = await fetch(API + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
-  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.detail || 'Fehler ' + res.status); }
-  if (res.status === 204) return null;
-  return res.json();
+async function api(path,opts={}){
+  const r=await fetch(API+path,{headers:{'Content-Type':'application/json'},...opts});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.detail||'Fehler '+r.status);}
+  if(r.status===204)return null;return r.json();
 }
+function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='show'+(err?' error':'');setTimeout(()=>t.className='',3200);}
+function fmt(s){if(!s)return'–';return new Date(s).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});}
+function fmtDT(s){if(!s)return'–';return new Date(s).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
 
-function toast(msg, error = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'show' + (error ? ' error' : '');
-  setTimeout(() => t.className = '', 3000);
+function nav(page,id=null){
+  document.querySelectorAll('nav a').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  const lnk=document.querySelector('nav a[data-page="'+page+'"]');
+  if(lnk)lnk.classList.add('active');
+  const basePg=document.getElementById('page-'+page);
+  if(basePg)basePg.classList.add('active');
+  if(page==='dashboard')loadDashboard();
+  else if(page==='artikel')loadArtikel();
+  else if(page==='artikel-detail'&&id)loadArtikelDetail(id);
+  else if(page==='ausleihe')loadAusleihen(false);
+  else if(page==='jobs')loadJobs();
+  else if(page==='job-detail'&&id)loadJobDetail(id);
+  else if(page==='kalender')renderKalender();
+  else if(page==='io'){};
 }
+document.querySelectorAll('nav a[data-page]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();nav(a.dataset.page);}));
 
-// Dashboard
-async function loadDashboard() {
-  const [artikel, ausleihen, jobs] = await Promise.all([api('/artikel/'), api('/ausleihen/?nur_aktiv=true'), api('/jobs/?status=aktiv')]);
-  artikelCache = artikel;
-  document.getElementById('stat-artikel').textContent = artikel.length;
-  document.getElementById('stat-verfuegbar').textContent = artikel.reduce((s,a) => s + a.menge_verfuegbar, 0);
-  document.getElementById('stat-ausgeliehen').textContent = artikel.reduce((s,a) => s + (a.menge_gesamt - a.menge_verfuegbar), 0);
-  document.getElementById('stat-jobs').textContent = jobs.length;
-  const el = document.getElementById('dash-ausleihen');
-  if (!ausleihen.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">◈</div>Keine aktiven Ausleihen</div>'; return; }
-  el.innerHTML = `<table><thead><tr><th>Artikel-ID</th><th>Entleiher</th><th>Menge</th><th>Rückgabe</th></tr></thead><tbody>${ausleihen.map(a=>`<tr><td>${a.artikel_id}</td><td>${a.entleiher_name}</td><td>${a.menge}</td><td>${a.rueckgabe_geplant?fmtDate(a.rueckgabe_geplant):'–'}</td></tr>`).join('')}</tbody></table>`;
-}
-
-// Artikel
-async function loadArtikel() {
-  const data = await api('/artikel/');
-  artikelAll = data; artikelCache = data;
-  renderArtikel(data);
-}
-
-function renderArtikel(data) {
-  const el = document.getElementById('artikel-list');
-  if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">▦</div>Keine Artikel vorhanden</div>'; return; }
-  el.innerHTML = `<table><thead><tr><th>#</th><th>Name</th><th>Verfügbar</th><th>Zustand</th><th>Lagerort</th><th>Seriennummern</th><th></th></tr></thead><tbody>${data.map(a=>`<tr>
-    <td style="color:var(--muted)">${a.id}</td>
-    <td><strong>${a.name}</strong></td>
-    <td class="avail ${a.menge_verfuegbar===0?'low':'ok'}">${a.menge_verfuegbar} / ${a.menge_gesamt}</td>
-    <td><span class="badge badge-${a.zustand==='gut'?'gut':'beschaedigt'}">${a.zustand}</span></td>
-    <td style="color:var(--muted)">${a.lagerort||'–'}</td>
-    <td>
-      <button class="btn btn-sn btn-sm" onclick="openSnModal(${a.id},'${a.name.replace(/'/g,"\\'")}')">⊟ S/N</button>
-      <button class="btn btn-qr btn-sm" onclick="window.open('/api/v1/einheiten/qr/${a.id}','_blank')">⊞ QR</button>
-    </td>
-    <td><button class="btn btn-danger btn-sm" onclick="deleteArtikel(${a.id})">✕</button></td>
-  </tr>`).join('')}</tbody></table>`;
-}
-
-function filterArtikel() {
-  const q = document.getElementById('artikel-search').value.toLowerCase();
-  renderArtikel(artikelAll.filter(a => a.name.toLowerCase().includes(q) || (a.lagerort||'').toLowerCase().includes(q)));
-}
-
-async function deleteArtikel(id) {
-  if (!confirm('Artikel löschen?')) return;
-  try { await api('/artikel/'+id, {method:'DELETE'}); toast('Artikel gelöscht'); loadArtikel(); }
-  catch(e) { toast(e.message, true); }
-}
-
-async function saveArtikel() {
-  const name = document.getElementById('a-name').value.trim();
-  if (!name) { toast('Name erforderlich', true); return; }
-  const menge = +document.getElementById('a-menge').value || 1;
-  const autoSn = document.getElementById('a-autosn').checked;
-  try {
-    const artikel = await api('/artikel/', { method: 'POST', body: JSON.stringify({
-      name, menge_gesamt: menge,
-      zustand: document.getElementById('a-zustand').value,
-      lagerort: document.getElementById('a-lagerort').value || null,
-      anschaffungswert: +document.getElementById('a-wert').value || null,
-    })});
-    if (autoSn) {
-      await api(`/einheiten/artikel/${artikel.id}/generieren?anzahl=${menge}`, {method:'POST'});
-      toast(`Artikel + ${menge} Seriennummer(n) angelegt ✓`);
-    } else {
-      toast('Artikel angelegt ✓');
-    }
-    closeModal('artikel'); loadArtikel();
-  } catch(e) { toast(e.message, true); }
-}
-
-// Seriennummern Modal
-async function openSnModal(artikelId, artikelName) {
-  currentSnArtikelId = artikelId;
-  document.getElementById('sn-modal-title').textContent = artikelName;
-  await loadSnList(artikelId);
-  openModal('sn');
-}
-
-async function loadSnList(artikelId) {
-  try {
-    const data = await api(`/einheiten/artikel/${artikelId}`);
-    const el = document.getElementById('sn-list');
-    if (!data.einheiten.length) {
-      el.innerHTML = '<div style="color:var(--muted);font-size:11px;padding:8px">Noch keine Seriennummern vorhanden.</div>';
-      return;
-    }
-    el.innerHTML = data.einheiten.map(e => `
-      <div class="sn-item">
-        <span class="sn-code">${e.seriennummer}</span>
-        <span class="badge badge-${e.zustand==='gut'?'gut':'beschaedigt'}">${e.zustand}</span>
-      </div>`).join('');
-  } catch(e) { toast(e.message, true); }
-}
-
-async function generiereSeriennummern() {
-  const anzahl = +document.getElementById('sn-anzahl').value || 1;
-  try {
-    await api(`/einheiten/artikel/${currentSnArtikelId}/generieren?anzahl=${anzahl}`, {method:'POST'});
-    toast(`${anzahl} Seriennummer(n) generiert ✓`);
-    await loadSnList(currentSnArtikelId);
-  } catch(e) { toast(e.message, true); }
-}
-
-function openQrPage() {
-  window.open(`/api/v1/einheiten/qr/${currentSnArtikelId}`, '_blank');
-}
-
-// Ausleihe
-async function loadAusleihen(nurAktiv = false) {
-  document.getElementById('filter-alle').className = 'btn btn-sm ' + (!nurAktiv ? 'btn-primary' : 'btn-ghost');
-  document.getElementById('filter-aktiv').className = 'btn btn-sm ' + (nurAktiv ? 'btn-primary' : 'btn-ghost');
-  const data = await api('/ausleihen/' + (nurAktiv ? '?nur_aktiv=true' : ''));
-  const el = document.getElementById('ausleihe-list');
-  if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">⇄</div>Keine Ausleihen</div>'; return; }
-  el.innerHTML = `<table><thead><tr><th>#</th><th>Artikel</th><th>Entleiher</th><th>Menge</th><th>Ausgeliehen</th><th>Rückgabe</th><th>Status</th><th></th></tr></thead><tbody>${data.map(a=>`<tr>
-    <td style="color:var(--muted)">${a.id}</td><td>${a.artikel_id}</td>
-    <td>${a.entleiher_name}${a.entleiher_kontakt?`<br><span style="color:var(--muted);font-size:10px">${a.entleiher_kontakt}</span>`:''}</td>
-    <td>${a.menge}</td><td>${fmtDate(a.ausgeliehen_am)}</td>
-    <td>${a.rueckgabe_geplant?fmtDate(a.rueckgabe_geplant):'–'}</td>
-    <td><span class="badge ${a.ist_aktiv?'badge-aktiv':'badge-rueck'}">${a.ist_aktiv?'Aktiv':'Zurück'}</span></td>
-    <td style="display:flex;gap:6px">${a.ist_aktiv?`<button class="btn btn-return btn-sm" onclick="rueckgabe(${a.id})">Rückgabe</button>`:''}<button class="btn btn-ghost btn-sm" onclick="editAusleihe(${a.id})">✎</button></td>
-  </tr>`).join('')}</tbody></table>`;
-}
-
-async function rueckgabe(id) {
-  try { await api('/ausleihen/'+id+'/rueckgabe', {method:'POST'}); toast('Rückgabe gebucht ✓'); loadAusleihen(false); }
-  catch(e) { toast(e.message, true); }
-}
-
-async function saveAusleihe() {
-  const artikel_id = +document.getElementById('au-artikel').value;
-  const name = document.getElementById('au-name').value.trim();
-  if (!artikel_id || !name) { toast('Artikel und Name erforderlich', true); return; }
-  try {
-    await api('/ausleihen/', { method: 'POST', body: JSON.stringify({
-      artikel_id, entleiher_name: name,
-      menge: +document.getElementById('au-menge').value || 1,
-      entleiher_kontakt: document.getElementById('au-kontakt').value || null,
-      rueckgabe_geplant: document.getElementById('au-rueck').value || null,
-    })});
-    toast('Ausleihe angelegt ✓'); closeModal('ausleihe'); loadAusleihen(false);
-  } catch(e) { toast(e.message, true); }
-}
-
-// Jobs
-async function loadJobs() {
-  const data = await api('/jobs/');
-  const el = document.getElementById('jobs-list');
-  if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">◎</div>Keine Jobs vorhanden</div>'; return; }
-  el.innerHTML = `<table><thead><tr><th>#</th><th>Name</th><th>Kunde</th><th>Ort</th><th>Beginn</th><th>Ende</th><th>Status</th><th></th></tr></thead><tbody>${data.map(j=>`<tr>
-    <td style="color:var(--muted)">${j.id}</td><td><strong>${j.name}</strong></td>
-    <td>${j.kunde||'–'}</td><td style="color:var(--muted)">${j.veranstaltungsort||'–'}</td>
-    <td>${j.beginn?fmtDate(j.beginn):'–'}</td><td>${j.ende?fmtDate(j.ende):'–'}</td>
-    <td><span class="badge badge-${j.status}">${j.status}</span></td>
-    <td style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="editJob(${j.id})">✎</button><button class="btn btn-danger btn-sm" onclick="deleteJob(${j.id})">✕</button></td>
-  </tr>`).join('')}</tbody></table>`;
-}
-
-async function saveJob() {
-  const name = document.getElementById('j-name').value.trim();
-  if (!name) { toast('Name erforderlich', true); return; }
-  try {
-    await api('/jobs/', { method: 'POST', body: JSON.stringify({
-      name, kunde: document.getElementById('j-kunde').value || null,
-      veranstaltungsort: document.getElementById('j-ort').value || null,
-      beginn: document.getElementById('j-beginn').value || null,
-      ende: document.getElementById('j-ende').value || null,
-      status: document.getElementById('j-status').value,
-    })});
-    toast('Job angelegt ✓'); closeModal('job'); loadJobs();
-  } catch(e) { toast(e.message, true); }
-}
-
-async function deleteJob(id) {
-  if (!confirm('Job löschen?')) return;
-  try { await api('/jobs/'+id, {method:'DELETE'}); toast('Job gelöscht'); loadJobs(); }
-  catch(e) { toast(e.message, true); }
-}
-
-// Modal
-function openModal(type) {
-  if (type === 'ausleihe') {
-    const sel = document.getElementById('au-artikel');
-    sel.innerHTML = artikelCache.filter(a => a.menge_verfuegbar > 0).map(a => `<option value="${a.id}">${a.name} (${a.menge_verfuegbar} verf.)</option>`).join('');
+function openModal(t){
+  if(t==='ausleihe'){
+    const sel=document.getElementById('au-art');
+    sel.innerHTML=artikelCache.filter(a=>a.menge_verfuegbar>0).map(a=>`<option value="${a.id}">${a.name} (${a.menge_verfuegbar} verf.)</option>`).join('');
+    if(ausleiheForArtikel){sel.value=ausleiheForArtikel;ausleiheForArtikel=null;}
+    api('/jobs/').then(jobs=>{
+      const js=document.getElementById('au-job');
+      js.innerHTML='<option value="">– Kein Job –</option>'+jobs.filter(j=>j.status!=='abgeschlossen'&&j.status!=='storniert').map(j=>`<option value="${j.id}">${j.name}</option>`).join('');
+      if(ausleiheForJob){js.value=ausleiheForJob;ausleiheForJob=null;}
+    });
   }
-  document.getElementById('modal-' + type).classList.add('open');
+  document.getElementById('modal-'+t).classList.add('open');
 }
-function closeModal(type) { document.getElementById('modal-' + type).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+function closeModal(t){document.getElementById('modal-'+t).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
-function fmtDate(s) { if (!s) return '–'; return new Date(s).toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit',year:'numeric'}); }
+async function loadDashboard(){
+  const[artikel,ausleihen,jobs]=await Promise.all([api('/artikel/'),api('/ausleihen/?nur_aktiv=true'),api('/jobs/')]);
+  artikelCache=artikel;
+  document.getElementById('st-artikel').textContent=artikel.length;
+  document.getElementById('st-verf').textContent=artikel.reduce((s,a)=>s+a.menge_verfuegbar,0);
+  document.getElementById('st-aus').textContent=artikel.reduce((s,a)=>s+(a.menge_gesamt-a.menge_verfuegbar),0);
+  document.getElementById('st-jobs').textContent=jobs.filter(j=>j.status==='geplant'||j.status==='aktiv').length;
+  const el=document.getElementById('dash-aus');
+  if(!ausleihen.length){el.innerHTML='<div class="empty"><div class="empty-icon">◈</div>Keine aktiven Ausleihen</div>';return;}
+  el.innerHTML=`<table><thead><tr><th>Artikel</th><th>Entleiher</th><th>Menge</th><th>Rückgabe</th><th></th></tr></thead><tbody>
+  ${ausleihen.map(a=>`<tr><td>${a.artikel_id?`<span style="cursor:pointer;color:var(--accent2)" onclick="nav('artikel-detail',${a.artikel_id})">#${a.artikel_id}</span>`:'–'}</td><td>${a.entleiher_name}</td><td>${a.menge}</td><td>${fmt(a.rueckgabe_geplant)}</td>
+  <td><button class="btn btn-return btn-xs" onclick="rueckgabe(${a.id})">↩</button></td></tr>`).join('')}</tbody></table>`;
+}
 
+async function loadArtikel(){
+  const data=await api('/artikel/');artikelAll=data;artikelCache=data;renderArtikel(data);
+}
+function renderArtikel(data){
+  const el=document.getElementById('art-list');
+  if(!data.length){el.innerHTML='<div class="empty"><div class="empty-icon">▦</div>Keine Artikel</div>';return;}
+  el.innerHTML=`<table><thead><tr><th>#</th><th>Name</th><th>Verfügbar</th><th>Zustand</th><th>Lagerort</th><th>SN</th><th></th></tr></thead><tbody>
+  ${data.map(a=>`<tr class="clickable" onclick="nav('artikel-detail',${a.id})">
+    <td style="color:var(--muted)">${a.id}</td><td><strong>${a.name}</strong></td>
+    <td class="avail ${a.menge_verfuegbar===0?'low':'ok'}">${a.menge_verfuegbar}/${a.menge_gesamt}</td>
+    <td><span class="badge badge-${a.zustand}">${a.zustand}</span></td>
+    <td style="color:var(--muted)">${a.lagerort||'–'}</td>
+    <td style="color:var(--muted)" id="ec-${a.id}">…</td>
+    <td onclick="event.stopPropagation()"><button class="btn btn-danger btn-xs" onclick="deleteArtikel(${a.id})">✕</button></td>
+  </tr>`).join('')}</tbody></table>`;
+  data.forEach(a=>api('/einheiten/artikel/'+a.id).then(e=>{const el=document.getElementById('ec-'+a.id);if(el)el.textContent=e.length+' SN';}).catch(()=>{}));
+}
+function filterArtikel(){const q=document.getElementById('art-search').value.toLowerCase();renderArtikel(artikelAll.filter(a=>a.name.toLowerCase().includes(q)||(a.lagerort||'').toLowerCase().includes(q)));}
 
-// ── Edit: Artikel ────────────────────────────────
-let editArtikelId = null;
-async function editArtikel(id) {
-  const a = artikelAll.find(x => x.id === id) || await api('/artikel/' + id);
-  editArtikelId = id;
-  document.getElementById('ea-name').value = a.name;
-  document.getElementById('ea-menge').value = a.menge_gesamt;
-  document.getElementById('ea-verfuegbar').value = a.menge_verfuegbar;
-  document.getElementById('ea-zustand').value = a.zustand;
-  document.getElementById('ea-lagerort').value = a.lagerort || '';
-  document.getElementById('ea-serial').value = a.seriennummer || '';
-  document.getElementById('ea-wert').value = a.anschaffungswert || '';
-  document.getElementById('ea-beschreibung').value = a.beschreibung || '';
+async function loadArtikelDetail(id){
+  currentArtikelId=id;
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-artikel-detail').classList.add('active');
+  const a=await api('/artikel/'+id);
+  document.getElementById('ad-bc-name').textContent=a.name;
+  document.getElementById('ad-name').textContent=a.name;
+  document.getElementById('ad-sub').textContent=(a.kategorie?a.kategorie.name+' · ':'')+a.zustand;
+  const kv=(k,v)=>v?`<span class="kv-key">${k}</span><span class="kv-val">${v}</span>`:'';
+  document.getElementById('ad-kv').innerHTML=`
+    <span class="kv-key">Zustand</span><span class="kv-val"><span class="badge badge-${a.zustand}">${a.zustand}</span></span>
+    ${kv('Lagerort',a.lagerort)}
+    ${a.stecker_a&&a.stecker_b?`<span class="kv-key">Anschlüsse</span><span class="kv-val">${a.stecker_a} → ${a.stecker_b}${a.ist_adapter?' <span class="badge badge-geplant">Adapter</span>':''}</span>`:''}
+    ${a.stecker_a&&!a.stecker_b?kv('Stecker',a.stecker_a):''}
+    ${kv('Länge',a.laenge_m?a.laenge_m+' m':null)}
+    ${kv('Kabeltyp',a.kabeltyp)}
+    ${kv('Kanäle',a.anzahl_kanaele)}
+    ${kv('Leistung',a.leistung_w?a.leistung_w+' W':null)}
+    ${kv('Spannung',a.spannung_v?a.spannung_v+' V':null)}
+    ${kv('Impedanz',a.impedanz_ohm?a.impedanz_ohm+' Ω':null)}
+    ${kv('Schutzklasse',a.schutzklasse_ip)}
+    ${kv('Gewicht',a.gewicht_kg?a.gewicht_kg+' kg':null)}
+    ${kv('Farbe',a.farbe)}
+    ${kv('Hersteller',a.hersteller)}
+    ${kv('Modell',a.modell)}
+    ${kv('Anschaffung',a.anschaffungswert?a.anschaffungswert.toFixed(2)+' €':null)}
+    ${kv('Kaufdatum',a.kaufdatum?fmt(a.kaufdatum):null)}
+    ${kv('Garantie bis',a.garantie_bis?fmt(a.garantie_bis):null)}
+    ${kv('Angelegt',fmt(a.erstellt_am))}
+    ${kv('Beschreibung',a.beschreibung)}
+    ${a.wartungshinweis?`<span class="kv-key">Wartung</span><span class="kv-val" style="color:var(--warn)">${a.wartungshinweis}</span>`:''}
+  `;
+  const pct=a.menge_gesamt?Math.round(a.menge_verfuegbar/a.menge_gesamt*100):0;
+  document.getElementById('ad-avail').innerHTML=`
+    <div style="margin-bottom:8px;"><span style="font-size:30px;font-family:var(--font-head);font-weight:800;color:${a.menge_verfuegbar===0?'var(--danger)':'var(--accent2)'}">${a.menge_verfuegbar}</span><span style="color:var(--muted);font-size:12px;"> / ${a.menge_gesamt}</span></div>
+    <div style="background:var(--surface2);height:3px;margin-bottom:10px;"><div style="background:var(--accent2);height:3px;width:${pct}%"></div></div>
+    <div style="color:var(--muted);font-size:11px;">${a.menge_gesamt-a.menge_verfuegbar} ausgeliehen</div>`;
+  loadArtikelSN(id);
+  api('/ausleihen/?artikel_id='+id).then(aus=>{
+    const el=document.getElementById('ad-ausleihen');
+    if(!aus.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;">Keine Ausleihen.</div>';return;}
+    el.innerHTML=`<table><thead><tr><th>Entleiher</th><th>Menge</th><th>Datum</th><th>Status</th><th></th></tr></thead><tbody>
+    ${aus.map(a=>`<tr><td>${a.entleiher_name}</td><td>${a.menge}</td><td>${fmt(a.ausgeliehen_am)}</td>
+    <td><span class="badge ${a.ist_aktiv?'badge-aktiv':'badge-rueck'}">${a.ist_aktiv?'Aktiv':'Zurück'}</span></td>
+    <td>${a.ist_aktiv?`<button class="btn btn-return btn-xs" onclick="rueckgabeReload(${a.id})">↩</button>`:''}</td></tr>`).join('')}</tbody></table>`;
+  });
+}
+async function loadArtikelSN(id){
+  const e=await api('/einheiten/artikel/'+id).catch(()=>[]);
+  const el=document.getElementById('ad-sn');
+  if(!e.length){el.innerHTML='<span style="color:var(--muted);font-size:12px;">Noch keine – generieren!</span>';return;}
+  el.innerHTML=e.map(x=>`<div class="sn-pill">${x.seriennummer}<span class="badge badge-${x.zustand}">${x.zustand}</span></div>`).join('');
+}
+async function genSN(){
+  const n=+document.getElementById('ad-sn-n').value||1;
+  await api('/einheiten/artikel/'+currentArtikelId+'/generieren',{method:'POST',body:JSON.stringify({anzahl:n})});
+  toast(n+' SN generiert ✓');loadArtikelSN(currentArtikelId);
+}
+function openAusleiheForArtikel(id){ausleiheForArtikel=id;artikelCache=artikelAll;openModal('ausleihe');}
+
+async function saveArtikel(){
+  const name=document.getElementById('a-name').value.trim();
+  if(!name){toast('Name erforderlich',true);return;}
+  try{
+    const v=n=>document.getElementById(n).value||null;
+    const vn=n=>+document.getElementById(n).value||null;
+    await api('/artikel/',{method:'POST',body:JSON.stringify({
+      name, menge_gesamt:+document.getElementById('a-menge').value||1,
+      zustand:document.getElementById('a-zustand').value,
+      lagerort:v('a-lagerort'), anschaffungswert:vn('a-wert'),
+      beschreibung:v('a-beschr'), farbe:v('a-farbe'),
+      stecker_a:v('a-stecker-a'), stecker_b:v('a-stecker-b'),
+      ist_adapter:document.getElementById('a-adapter').checked,
+      laenge_m:vn('a-laenge'), kabeltyp:v('a-kabeltyp'),
+      leistung_w:vn('a-leistung'), spannung_v:vn('a-spannung'),
+      impedanz_ohm:vn('a-impedanz'), anzahl_kanaele:vn('a-kanaele'),
+      schutzklasse_ip:v('a-ip'), gewicht_kg:vn('a-gewicht'),
+      hersteller:v('a-hersteller'), modell:v('a-modell'),
+      kaufdatum:v('a-kaufdatum'), garantie_bis:v('a-garantie'),
+      wartungshinweis:v('a-wartung'),
+    })});
+    toast('Artikel + SN angelegt ✓');closeModal('artikel');loadArtikel();
+  }catch(e){toast(e.message,true);}
+}
+async function openEditArtikel(id){
+  const a=await api('/artikel/'+id);editArtikelId=id;
+  const sv=(id,v)=>document.getElementById(id).value=v||'';
+  sv('ea-name',a.name); sv('ea-menge',a.menge_gesamt); sv('ea-verf',a.menge_verfuegbar);
+  document.getElementById('ea-zustand').value=a.zustand;
+  sv('ea-lagerort',a.lagerort); sv('ea-wert',a.anschaffungswert); sv('ea-farbe',a.farbe);
+  sv('ea-stecker-a',a.stecker_a); sv('ea-stecker-b',a.stecker_b);
+  document.getElementById('ea-adapter').checked=a.ist_adapter||false;
+  sv('ea-laenge',a.laenge_m); sv('ea-kabeltyp',a.kabeltyp);
+  sv('ea-leistung',a.leistung_w); sv('ea-spannung',a.spannung_v);
+  sv('ea-impedanz',a.impedanz_ohm); sv('ea-kanaele',a.anzahl_kanaele);
+  sv('ea-ip',a.schutzklasse_ip); sv('ea-gewicht',a.gewicht_kg);
+  sv('ea-hersteller',a.hersteller); sv('ea-modell',a.modell);
+  sv('ea-kaufdatum',a.kaufdatum); sv('ea-garantie',a.garantie_bis);
+  sv('ea-beschr',a.beschreibung); sv('ea-wartung',a.wartungshinweis);
   openModal('edit-artikel');
 }
-async function updateArtikel() {
-  const name = document.getElementById('ea-name').value.trim();
-  if (!name) { toast('Name erforderlich', true); return; }
-  try {
-    await api('/artikel/' + editArtikelId, { method: 'PATCH', body: JSON.stringify({
-      name,
-      menge_gesamt: +document.getElementById('ea-menge').value,
-      menge_verfuegbar: +document.getElementById('ea-verfuegbar').value,
-      zustand: document.getElementById('ea-zustand').value,
-      lagerort: document.getElementById('ea-lagerort').value || null,
-      seriennummer: document.getElementById('ea-serial').value || null,
-      anschaffungswert: +document.getElementById('ea-wert').value || null,
-      beschreibung: document.getElementById('ea-beschreibung').value || null,
+async function updateArtikel(){
+  try{
+    const ev=n=>document.getElementById(n).value||null;
+    const evn=n=>+document.getElementById(n).value||null;
+    await api('/artikel/'+editArtikelId,{method:'PATCH',body:JSON.stringify({
+      name:document.getElementById('ea-name').value,
+      menge_gesamt:+document.getElementById('ea-menge').value,
+      menge_verfuegbar:+document.getElementById('ea-verf').value,
+      zustand:document.getElementById('ea-zustand').value,
+      lagerort:ev('ea-lagerort'), anschaffungswert:evn('ea-wert'), farbe:ev('ea-farbe'),
+      stecker_a:ev('ea-stecker-a'), stecker_b:ev('ea-stecker-b'),
+      ist_adapter:document.getElementById('ea-adapter').checked,
+      laenge_m:evn('ea-laenge'), kabeltyp:ev('ea-kabeltyp'),
+      leistung_w:evn('ea-leistung'), spannung_v:evn('ea-spannung'),
+      impedanz_ohm:evn('ea-impedanz'), anzahl_kanaele:evn('ea-kanaele'),
+      schutzklasse_ip:ev('ea-ip'), gewicht_kg:evn('ea-gewicht'),
+      hersteller:ev('ea-hersteller'), modell:ev('ea-modell'),
+      kaufdatum:ev('ea-kaufdatum'), garantie_bis:ev('ea-garantie'),
+      beschreibung:ev('ea-beschr'), wartungshinweis:ev('ea-wartung'),
     })});
-    toast('Artikel aktualisiert ✓'); closeModal('edit-artikel'); loadArtikel();
-  } catch(e) { toast(e.message, true); }
+    toast('Gespeichert ✓');closeModal('edit-artikel');
+    if(currentArtikelId===editArtikelId)loadArtikelDetail(editArtikelId);else loadArtikel();
+  }catch(e){toast(e.message,true);}
 }
+async function deleteArtikel(id){if(!confirm('Artikel löschen?'))return;try{await api('/artikel/'+id,{method:'DELETE'});toast('Gelöscht');loadArtikel();}catch(e){toast(e.message,true);}}
+async function deleteArtikelAndBack(id){if(!confirm('Artikel löschen?'))return;try{await api('/artikel/'+id,{method:'DELETE'});toast('Gelöscht');nav('artikel');}catch(e){toast(e.message,true);}}
 
-// ── Edit: Ausleihe ───────────────────────────────
-let editAusleiheId = null;
-async function editAusleihe(id) {
-  const a = await api('/ausleihen/?limit=1000').then(list => list.find(x => x.id === id));
-  editAusleiheId = id;
-  document.getElementById('eau-name').value = a.entleiher_name;
-  document.getElementById('eau-kontakt').value = a.entleiher_kontakt || '';
-  document.getElementById('eau-menge').value = a.menge;
-  document.getElementById('eau-rueck').value = a.rueckgabe_geplant ? a.rueckgabe_geplant.split('T')[0] : '';
-  document.getElementById('eau-notizen').value = a.notizen || '';
+async function loadAusleihen(nurAktiv=false){
+  document.getElementById('f-alle').style.color=nurAktiv?'':'var(--text)';
+  document.getElementById('f-aktiv').style.color=nurAktiv?'var(--text)':'';
+  const data=await api('/ausleihen/'+(nurAktiv?'?nur_aktiv=true':''));
+  const el=document.getElementById('aus-list');
+  if(!data.length){el.innerHTML='<div class="empty"><div class="empty-icon">⇄</div>Keine Ausleihen</div>';return;}
+  el.innerHTML=`<table><thead><tr><th>#</th><th>Artikel</th><th>Job</th><th>Entleiher</th><th>Menge</th><th>Ausgeliehen</th><th>Rückgabe</th><th>Status</th><th></th></tr></thead><tbody>
+  ${data.map(a=>`<tr>
+    <td style="color:var(--muted)">${a.id}</td>
+    <td>${a.artikel_id?`<span style="cursor:pointer;color:var(--accent2)" onclick="nav('artikel-detail',${a.artikel_id})">#${a.artikel_id}</span>`:'–'}</td>
+    <td>${a.job_id?`<span style="cursor:pointer;color:var(--accent)" onclick="nav('job-detail',${a.job_id})">#${a.job_id}</span>`:'–'}</td>
+    <td>${a.entleiher_name}${a.entleiher_kontakt?`<br><span style="color:var(--muted);font-size:10px">${a.entleiher_kontakt}</span>`:''}</td>
+    <td>${a.menge}</td><td>${fmt(a.ausgeliehen_am)}</td><td>${fmt(a.rueckgabe_geplant)}</td>
+    <td><span class="badge ${a.ist_aktiv?'badge-aktiv':'badge-rueck'}">${a.ist_aktiv?'Aktiv':'Zurück'}</span></td>
+    <td style="display:flex;gap:4px">
+      ${a.ist_aktiv?`<button class="btn btn-return btn-xs" onclick="rueckgabe(${a.id})">↩</button>`:''}
+      <button class="btn btn-ghost btn-xs" onclick="openEditAusleihe(${a.id})">✎</button>
+    </td>
+  </tr>`).join('')}</tbody></table>`;
+}
+async function rueckgabe(id){try{await api('/ausleihen/'+id+'/rueckgabe',{method:'POST'});toast('Rückgabe ✓');loadAusleihen(false);loadDashboard();}catch(e){toast(e.message,true);}}
+async function rueckgabeReload(id){try{await api('/ausleihen/'+id+'/rueckgabe',{method:'POST'});toast('Rückgabe ✓');loadArtikelDetail(currentArtikelId);}catch(e){toast(e.message,true);}}
+async function saveAusleihe(){
+  const artikel_id=+document.getElementById('au-art').value;
+  const name=document.getElementById('au-name').value.trim();
+  if(!artikel_id||!name){toast('Artikel und Name erforderlich',true);return;}
+  try{
+    await api('/ausleihen/',{method:'POST',body:JSON.stringify({
+      artikel_id,entleiher_name:name,
+      job_id:+document.getElementById('au-job').value||null,
+      menge:+document.getElementById('au-menge').value||1,
+      entleiher_kontakt:document.getElementById('au-kontakt').value||null,
+      rueckgabe_geplant:document.getElementById('au-rueck').value||null,
+      notizen:document.getElementById('au-notizen').value||null,
+    })});
+    toast('Ausleihe angelegt ✓');closeModal('ausleihe');
+    if(currentArtikelId)loadArtikelDetail(currentArtikelId);else loadAusleihen(false);
+  }catch(e){toast(e.message,true);}
+}
+async function openEditAusleihe(id){
+  const list=await api('/ausleihen/?limit=9999');
+  const a=list.find(x=>x.id===id);editAusleiheId=id;
+  document.getElementById('eau-name').value=a.entleiher_name;
+  document.getElementById('eau-kontakt').value=a.entleiher_kontakt||'';
+  document.getElementById('eau-menge').value=a.menge;
+  document.getElementById('eau-rueck').value=a.rueckgabe_geplant?a.rueckgabe_geplant.split('T')[0]:'';
+  document.getElementById('eau-notizen').value=a.notizen||'';
   openModal('edit-ausleihe');
 }
-async function updateAusleihe() {
-  try {
-    await api('/ausleihen/' + editAusleiheId, { method: 'PATCH', body: JSON.stringify({
-      entleiher_name: document.getElementById('eau-name').value,
-      entleiher_kontakt: document.getElementById('eau-kontakt').value || null,
-      menge: +document.getElementById('eau-menge').value,
-      rueckgabe_geplant: document.getElementById('eau-rueck').value || null,
-      notizen: document.getElementById('eau-notizen').value || null,
+async function updateAusleihe(){
+  try{
+    await api('/ausleihen/'+editAusleiheId,{method:'PATCH',body:JSON.stringify({
+      entleiher_name:document.getElementById('eau-name').value,
+      entleiher_kontakt:document.getElementById('eau-kontakt').value||null,
+      menge:+document.getElementById('eau-menge').value,
+      rueckgabe_geplant:document.getElementById('eau-rueck').value||null,
+      notizen:document.getElementById('eau-notizen').value||null,
     })});
-    toast('Ausleihe aktualisiert ✓'); closeModal('edit-ausleihe'); loadAusleihen(false);
-  } catch(e) { toast(e.message, true); }
+    toast('Gespeichert ✓');closeModal('edit-ausleihe');loadAusleihen(false);
+  }catch(e){toast(e.message,true);}
 }
+function openAusleiheForJob(jobId){ausleiheForJob=jobId;artikelCache=artikelAll;openModal('ausleihe');}
 
-// ── Edit: Job ────────────────────────────────────
-let editJobId = null;
-async function editJob(id) {
-  const j = await api('/jobs/' + id);
-  editJobId = id;
-  document.getElementById('ej-name').value = j.name;
-  document.getElementById('ej-kunde').value = j.kunde || '';
-  document.getElementById('ej-ort').value = j.veranstaltungsort || '';
-  document.getElementById('ej-beginn').value = j.beginn ? j.beginn.slice(0,16) : '';
-  document.getElementById('ej-ende').value = j.ende ? j.ende.slice(0,16) : '';
-  document.getElementById('ej-status').value = j.status;
-  document.getElementById('ej-notizen').value = j.notizen || '';
+async function loadJobs(){
+  const data=await api('/jobs/');jobsAll=data;
+  const el=document.getElementById('jobs-list');
+  if(!data.length){el.innerHTML='<div class="empty"><div class="empty-icon">◎</div>Keine Jobs</div>';return;}
+  el.innerHTML=`<table><thead><tr><th>#</th><th>Name</th><th>Kunde</th><th>Ort</th><th>Beginn</th><th>Ende</th><th>Status</th><th></th></tr></thead><tbody>
+  ${data.map(j=>`<tr class="clickable" onclick="nav('job-detail',${j.id})">
+    <td style="color:var(--muted)">${j.id}</td><td><strong>${j.name}</strong></td>
+    <td>${j.kunde||'–'}</td><td style="color:var(--muted)">${j.veranstaltungsort||'–'}</td>
+    <td>${fmt(j.beginn)}</td><td>${fmt(j.ende)}</td>
+    <td><span class="badge badge-${j.status}">${j.status}</span></td>
+    <td onclick="event.stopPropagation()" style="display:flex;gap:4px">
+      <button class="btn btn-ghost btn-xs" onclick="openEditJobModal(${j.id})">✎</button>
+      <button class="btn btn-danger btn-xs" onclick="deleteJob(${j.id})">✕</button>
+    </td>
+  </tr>`).join('')}</tbody></table>`;
+}
+async function loadJobDetail(id){
+  currentJobId=id;
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-job-detail').classList.add('active');
+  const j=await api('/jobs/'+id);
+  document.getElementById('jd-bc-name').textContent=j.name;
+  document.getElementById('jd-name').textContent=j.name;
+  document.getElementById('jd-sub').textContent=(j.kunde?j.kunde+' · ':'')+j.status;
+  document.getElementById('jd-kv').innerHTML=`
+    <span class="kv-key">Kunde</span><span class="kv-val">${j.kunde||'–'}</span>
+    <span class="kv-key">Ort</span><span class="kv-val">${j.veranstaltungsort||'–'}</span>
+    <span class="kv-key">Beginn</span><span class="kv-val">${fmtDT(j.beginn)}</span>
+    <span class="kv-key">Ende</span><span class="kv-val">${fmtDT(j.ende)}</span>
+    <span class="kv-key">Status</span><span class="kv-val"><span class="badge badge-${j.status}">${j.status}</span></span>
+    ${j.notizen?`<span class="kv-key">Notizen</span><span class="kv-val">${j.notizen}</span>`:''}`;
+  document.getElementById('jd-status-info').innerHTML=`<span class="badge badge-${j.status}" style="font-size:12px;padding:4px 12px">${j.status}</span>${j.beginn?`<div style="color:var(--muted);font-size:11px;margin-top:8px">Beginn: ${fmtDT(j.beginn)}</div>`:''}${j.ende?`<div style="color:var(--muted);font-size:11px">Ende: ${fmtDT(j.ende)}</div>`:''}`;
+  api('/ausleihen/?job_id='+id).then(aus=>{
+    const el=document.getElementById('jd-equipment');
+    if(!aus.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;">Noch kein Equipment.</div>';return;}
+    el.innerHTML=`<table><thead><tr><th>Artikel</th><th>Entleiher</th><th>Menge</th><th>Status</th><th></th></tr></thead><tbody>
+    ${aus.map(a=>`<tr><td>${a.artikel_id?`<span style="cursor:pointer;color:var(--accent2)" onclick="nav('artikel-detail',${a.artikel_id})">#${a.artikel_id}</span>`:'–'}</td>
+    <td>${a.entleiher_name}</td><td>${a.menge}</td>
+    <td><span class="badge ${a.ist_aktiv?'badge-aktiv':'badge-rueck'}">${a.ist_aktiv?'Aktiv':'Zurück'}</span></td>
+    <td>${a.ist_aktiv?`<button class="btn btn-return btn-xs" onclick="rueckgabe(${a.id})">↩</button>`:''}</td></tr>`).join('')}</tbody></table>`;
+  });
+}
+async function setJobStatus(id,status){try{await api('/jobs/'+id,{method:'PATCH',body:JSON.stringify({status})});toast('Status: '+status+' ✓');loadJobDetail(id);}catch(e){toast(e.message,true);}}
+async function saveJob(){
+  const name=document.getElementById('j-name').value.trim();
+  if(!name){toast('Name erforderlich',true);return;}
+  try{await api('/jobs/',{method:'POST',body:JSON.stringify({name,kunde:document.getElementById('j-kunde').value||null,veranstaltungsort:document.getElementById('j-ort').value||null,beginn:document.getElementById('j-beginn').value||null,ende:document.getElementById('j-ende').value||null,notizen:document.getElementById('j-notizen').value||null})});toast('Job angelegt ✓');closeModal('job');loadJobs();}catch(e){toast(e.message,true);}
+}
+async function openEditJobModal(id){
+  const j=await api('/jobs/'+id);editJobId=id;
+  document.getElementById('ej-name').value=j.name;
+  document.getElementById('ej-kunde').value=j.kunde||'';
+  document.getElementById('ej-ort').value=j.veranstaltungsort||'';
+  document.getElementById('ej-beginn').value=j.beginn?j.beginn.slice(0,16):'';
+  document.getElementById('ej-ende').value=j.ende?j.ende.slice(0,16):'';
+  document.getElementById('ej-status').value=j.status;
+  document.getElementById('ej-notizen').value=j.notizen||'';
   openModal('edit-job');
 }
-async function updateJob() {
-  const name = document.getElementById('ej-name').value.trim();
-  if (!name) { toast('Name erforderlich', true); return; }
-  try {
-    await api('/jobs/' + editJobId, { method: 'PATCH', body: JSON.stringify({
-      name,
-      kunde: document.getElementById('ej-kunde').value || null,
-      veranstaltungsort: document.getElementById('ej-ort').value || null,
-      beginn: document.getElementById('ej-beginn').value || null,
-      ende: document.getElementById('ej-ende').value || null,
-      status: document.getElementById('ej-status').value,
-      notizen: document.getElementById('ej-notizen').value || null,
-    })});
-    toast('Job aktualisiert ✓'); closeModal('edit-job'); loadJobs();
-  } catch(e) { toast(e.message, true); }
+async function updateJob(){
+  try{await api('/jobs/'+editJobId,{method:'PATCH',body:JSON.stringify({name:document.getElementById('ej-name').value,kunde:document.getElementById('ej-kunde').value||null,veranstaltungsort:document.getElementById('ej-ort').value||null,beginn:document.getElementById('ej-beginn').value||null,ende:document.getElementById('ej-ende').value||null,status:document.getElementById('ej-status').value,notizen:document.getElementById('ej-notizen').value||null})});toast('Gespeichert ✓');closeModal('edit-job');if(currentJobId===editJobId)loadJobDetail(editJobId);else loadJobs();}catch(e){toast(e.message,true);}
+}
+async function deleteJob(id){if(!confirm('Job löschen?'))return;try{await api('/jobs/'+id,{method:'DELETE'});toast('Gelöscht');loadJobs();}catch(e){toast(e.message,true);}}
+async function deleteJobAndBack(id){if(!confirm('Job löschen?'))return;try{await api('/jobs/'+id,{method:'DELETE'});toast('Gelöscht');nav('jobs');}catch(e){toast(e.message,true);}}
+
+const MONATE=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const WOCHENTAGE=['Mo','Di','Mi','Do','Fr','Sa','So'];
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderKalender();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderKalender();}
+function calToday(){calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderKalender();}
+async function renderKalender(){
+  document.getElementById('cal-title').textContent=MONATE[calMonth]+' '+calYear;
+  const jobs=await api('/jobs/');
+  const heute=new Date();
+  const erster=new Date(calYear,calMonth,1);
+  const letzter=new Date(calYear,calMonth+1,0);
+  const startWT=(erster.getDay()+6)%7;
+  const grid=document.getElementById('cal-grid');
+  grid.innerHTML=WOCHENTAGE.map(t=>`<div class="cal-day-name">${t}</div>`).join('');
+  const tage=[];
+  for(let i=0;i<startWT;i++)tage.push({d:new Date(calYear,calMonth,1-startWT+i),other:true});
+  for(let i=1;i<=letzter.getDate();i++)tage.push({d:new Date(calYear,calMonth,i),other:false});
+  const rest=(7-tage.length%7)%7;
+  for(let i=1;i<=rest;i++)tage.push({d:new Date(calYear,calMonth+1,i),other:true});
+  tage.forEach(({d,other})=>{
+    const cell=document.createElement('div');
+    cell.className='cal-cell'+(other?' other-month':'')+(d.toDateString()===heute.toDateString()?' today':'');
+    cell.innerHTML=`<div class="cal-num">${d.getDate()}</div>`;
+    jobs.forEach(j=>{
+      if(!j.beginn)return;
+      const von=new Date(j.beginn),bis=j.ende?new Date(j.ende):von;
+      const dD=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+      const vD=new Date(von.getFullYear(),von.getMonth(),von.getDate());
+      const bD=new Date(bis.getFullYear(),bis.getMonth(),bis.getDate());
+      if(dD>=vD&&dD<=bD){
+        const ev=document.createElement('div');
+        ev.className='cal-event '+j.status;
+        ev.textContent=j.name;
+        ev.onclick=()=>nav('job-detail',j.id);
+        cell.appendChild(ev);
+      }
+    });
+    grid.appendChild(cell);
+  });
 }
 
+
+// ── Import / Export ──────────────────────────────
+function doExport(){
+  const ids=document.getElementById('io-export-ids').value.trim();
+  const url=API+'/io/export.vtinv'+(ids?'?ids='+encodeURIComponent(ids):'');
+  const a=document.createElement('a');a.href=url;a.download='inventar.vtinv';a.click();
+  toast('Export gestartet ✓');
+}
+async function doVorschau(){
+  const file=document.getElementById('io-file').files[0];
+  if(!file)return;
+  const fd=new FormData();fd.append('file',file);
+  const r=await fetch(API+'/io/vorschau',{method:'POST',body:fd});
+  const d=await r.json();
+  const el=document.getElementById('io-preview');
+  if(d.fehler){el.innerHTML=`<div style="color:var(--danger);font-size:11px;">✕ ${d.fehler}</div>`;return;}
+  el.innerHTML=`<div style="background:var(--surface2);border:1px solid var(--border);padding:12px;font-size:11px;">
+    <div style="color:var(--muted);margin-bottom:8px;">Vorschau · Version ${d.version} · ${d.anzahl} Artikel</div>
+    ${d.artikel.map(a=>`<div style="display:flex;gap:12px;padding:3px 0;border-bottom:1px solid var(--border);">
+      <span style="flex:1">${a.name}</span>
+      <span style="color:var(--muted)">${a.menge}×</span>
+      <span class="badge badge-${a.zustand}">${a.zustand}</span>
+      <span style="color:var(--muted)">${a.einheiten} SN</span>
+    </div>`).join('')}
+  </div>`;
+}
+async function doImport(){
+  const file=document.getElementById('io-file').files[0];
+  if(!file){toast('Keine Datei ausgewählt',true);return;}
+  const overwrite=document.getElementById('io-overwrite').checked;
+  const fd=new FormData();fd.append('file',file);
+  const r=await fetch(API+'/io/import?ueberschreiben='+overwrite,{method:'POST',body:fd});
+  const d=await r.json();
+  const el=document.getElementById('io-result');
+  if(d.fehler&&typeof d.fehler==='string'){el.innerHTML=`<div class="card" style="border-color:var(--danger);"><div style="color:var(--danger)">${d.fehler}</div></div>`;return;}
+  el.innerHTML=`<div class="card">
+    <div class="card-title">Import abgeschlossen</div>
+    <div style="display:flex;gap:24px;font-size:12px;margin-bottom:12px;">
+      <span style="color:var(--accent2)">✓ ${d.neu} neu</span>
+      <span style="color:var(--accent)">↻ ${d.aktualisiert} aktualisiert</span>
+      <span style="color:var(--muted)">⏭ ${d.uebersprungen} übersprungen</span>
+    </div>
+    ${d.fehler&&d.fehler.length?`<div style="color:var(--danger);font-size:11px;">${d.fehler.join('<br>')}</div>`:''}
+  </div>`;
+  toast('Import abgeschlossen: '+d.neu+' neu, '+d.aktualisiert+' aktualisiert');
+}
+
+api('/artikel/').then(d=>{artikelCache=d;artikelAll=d;});
 loadDashboard();
 </script>
 </body>
