@@ -116,6 +116,8 @@ tr:hover td{background:var(--surface2);}
     <li><a href="#" data-page="jobs"><span class="icon">◎</span> Jobs</a></li>
     <li class="nav-sec">Planung</li>
     <li><a href="#" data-page="kalender"><span class="icon">▣</span> Kalender</a></li>
+    <li class="nav-sec">Mobile</li>
+    <li><a href="/api/v1/scan/" target="_blank"><span class="icon">⬡</span> Scan-App</a></li>
     <li class="nav-sec">Daten</li>
     <li><a href="#" data-page="io"><span class="icon">⇅</span> Import / Export</a></li>
   </ul>
@@ -210,6 +212,8 @@ tr:hover td{background:var(--surface2);}
   <div class="ph">
     <div class="ph-left"><h1 id="jd-name"></h1><p id="jd-sub"></p></div>
     <div class="ph-actions">
+      <button class="btn btn-ghost" onclick="window.open('/api/v1/jobs/'+currentJobId+'/qr','_blank')">⬡ QR</button>
+      <button class="btn btn-ghost" onclick="window.open('/api/v1/jobs/'+currentJobId+'/packliste','_blank')">🖨 Packliste</button>
       <button class="btn btn-ghost" onclick="openEditJobModal(currentJobId)">✎ Bearbeiten</button>
       <button class="btn btn-danger" onclick="deleteJobAndBack(currentJobId)">✕ Löschen</button>
     </div>
@@ -276,6 +280,39 @@ tr:hover td{background:var(--surface2);}
     </div>
   </div>
   <div id="io-result" style="margin-top:20px;"></div>
+</div>
+<div class="page" id="page-einheit-detail">
+  <div class="bc">
+    <span onclick="nav('artikel')">Artikel</span><span class="sep">›</span>
+    <span id="ed-bc-artikel" style="cursor:pointer" onclick="nav('artikel-detail',currentArtikelId)"></span>
+    <span class="sep">›</span>
+    <span id="ed-bc-sn" style="color:var(--text)"></span>
+  </div>
+  <div class="ph">
+    <div class="ph-left"><h1 id="ed-sn"></h1><p id="ed-sub"></p></div>
+    <div class="ph-actions">
+      <button class="btn btn-ghost" onclick="openEditEinheit()">✎ Zustand ändern</button>
+    </div>
+  </div>
+  <div class="detail-grid">
+    <div>
+      <div class="card"><div class="card-title">Einheit</div><div class="kv-grid" id="ed-kv"></div></div>
+      <div class="card"><div class="card-title">Artikel-Typ</div><div class="kv-grid" id="ed-artikel-kv"></div></div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">QR-Code</div>
+        <div id="ed-qr" style="text-align:center;padding:8px;"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Aktionen</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="window.open('/api/v1/einheiten/qr/'+currentEinheitSN+'.svg','_blank')">⬇ QR als SVG</button>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openAusleiheForArtikel(currentArtikelId)">+ Ausleihen</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </main>
 </div>
@@ -487,6 +524,27 @@ tr:hover td{background:var(--surface2);}
   </div>
 </div>
 
+
+<div class="modal-overlay" id="modal-edit-einheit">
+  <div class="modal">
+    <div class="modal-header"><h2>Einheit bearbeiten</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('edit-einheit')">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Zustand</label>
+        <select id="ee-zustand">
+          <option value="gut">Gut</option>
+          <option value="beschaedigt">Beschädigt</option>
+          <option value="reparatur">In Reparatur</option>
+          <option value="ausgemustert">Ausgemustert</option>
+        </select>
+      </div>
+      <div class="field"><label>Notizen</label><textarea id="ee-notizen" rows="3"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('edit-einheit')">Abbrechen</button>
+      <button class="btn btn-primary" onclick="updateEinheit()">Speichern</button>
+    </div>
+  </div>
+</div>
 <div id="toast"></div>
 
 <script>
@@ -624,7 +682,7 @@ async function loadArtikelSN(id){
   const e=await api('/einheiten/artikel/'+id).catch(()=>[]);
   const el=document.getElementById('ad-sn');
   if(!e.length){el.innerHTML='<span style="color:var(--muted);font-size:12px;">Noch keine – generieren!</span>';return;}
-  el.innerHTML=e.map(x=>`<div class="sn-pill">${x.seriennummer}<span class="badge badge-${x.zustand}">${x.zustand}</span></div>`).join('');
+  el.innerHTML=e.map(x=>`<div class="sn-pill" style="cursor:pointer" onclick="navEinheit('${x.seriennummer}')">${x.seriennummer}<span class="badge badge-${x.zustand}">${x.zustand}</span></div>`).join('');
 }
 async function genSN(){
   const n=+document.getElementById('ad-sn-n').value||1;
@@ -775,6 +833,8 @@ async function loadJobs(){
     <td>${fmt(j.beginn)}</td><td>${fmt(j.ende)}</td>
     <td><span class="badge badge-${j.status}">${j.status}</span></td>
     <td onclick="event.stopPropagation()" style="display:flex;gap:4px">
+      <button class="btn btn-ghost btn-xs" onclick="window.open('/api/v1/jobs/'+j.id+'/qr','_blank')">⬡</button>
+      <button class="btn btn-ghost btn-xs" onclick="window.open('/api/v1/jobs/'+j.id+'/packliste','_blank')">🖨</button>
       <button class="btn btn-ghost btn-xs" onclick="openEditJobModal(${j.id})">✎</button>
       <button class="btn btn-danger btn-xs" onclick="deleteJob(${j.id})">✕</button>
     </td>
@@ -915,6 +975,80 @@ async function doImport(){
     ${d.fehler&&d.fehler.length?`<div style="color:var(--danger);font-size:11px;">${d.fehler.join('<br>')}</div>`:''}
   </div>`;
   toast('Import abgeschlossen: '+d.neu+' neu, '+d.aktualisiert+' aktualisiert');
+}
+
+
+// ── Einheit-Detail ────────────────────────────────
+let currentEinheitSN = null;
+
+async function navEinheit(sn) {
+  currentEinheitSN = sn;
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-einheit-detail').classList.add('active');
+
+  // Einheit laden via Einheiten-Liste des Artikels
+  const einheiten = await api('/einheiten/artikel/' + currentArtikelId);
+  const einheit = einheiten.find(e => e.seriennummer === sn);
+  if (!einheit) { toast('Einheit nicht gefunden', true); return; }
+
+  // Artikel laden
+  const artikel = await api('/artikel/' + currentArtikelId);
+
+  document.getElementById('ed-bc-artikel').textContent = artikel.name;
+  document.getElementById('ed-bc-sn').textContent = sn;
+  document.getElementById('ed-sn').textContent = sn;
+  document.getElementById('ed-sub').textContent = artikel.name + ' · ' + einheit.zustand;
+
+  document.getElementById('ed-kv').innerHTML = `
+    <span class="kv-key">Seriennummer</span><span class="kv-val" style="font-weight:500;letter-spacing:.05em">${sn}</span>
+    <span class="kv-key">Zustand</span><span class="kv-val"><span class="badge badge-${einheit.zustand}">${einheit.zustand}</span></span>
+    <span class="kv-key">Angelegt</span><span class="kv-val">${fmt(einheit.erstellt_am)}</span>
+    ${einheit.notizen ? `<span class="kv-key">Notizen</span><span class="kv-val">${einheit.notizen}</span>` : ''}
+  `;
+
+  const kv = (k,v) => v ? `<span class="kv-key">${k}</span><span class="kv-val">${v}</span>` : '';
+  document.getElementById('ed-artikel-kv').innerHTML = `
+    <span class="kv-key">Typ</span><span class="kv-val" style="cursor:pointer;color:var(--accent2)" onclick="nav('artikel-detail',${artikel.id})">${artikel.name}</span>
+    ${kv('Lagerort', artikel.lagerort)}
+    ${artikel.stecker_a && artikel.stecker_b ? `<span class="kv-key">Anschlüsse</span><span class="kv-val">${artikel.stecker_a} → ${artikel.stecker_b}</span>` : ''}
+    ${kv('Länge', artikel.laenge_m ? artikel.laenge_m + ' m' : null)}
+    ${kv('Hersteller', artikel.hersteller)}
+    ${kv('Modell', artikel.modell)}
+    ${kv('Farbe', artikel.farbe)}
+  `;
+
+  // QR-Code anzeigen
+  document.getElementById('ed-qr').innerHTML = `
+    <img src="/api/v1/einheiten/qr/${sn}.svg" style="width:160px;height:160px;background:white;padding:8px;" onerror="this.style.display='none'">
+    <div style="font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:.05em">${sn}</div>
+  `;
+}
+
+function openEditEinheit() {
+  // Aktuellen Zustand vorausfüllen
+  api('/einheiten/artikel/' + currentArtikelId).then(einheiten => {
+    const e = einheiten.find(x => x.seriennummer === currentEinheitSN);
+    if (e) {
+      document.getElementById('ee-zustand').value = e.zustand;
+      document.getElementById('ee-notizen').value = e.notizen || '';
+    }
+    openModal('edit-einheit');
+  });
+}
+
+async function updateEinheit() {
+  try {
+    await api('/einheiten/' + currentEinheitSN, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        zustand: document.getElementById('ee-zustand').value,
+        notizen: document.getElementById('ee-notizen').value || null,
+      })
+    });
+    toast('Gespeichert ✓');
+    closeModal('edit-einheit');
+    navEinheit(currentEinheitSN);
+  } catch(e) { toast(e.message, true); }
 }
 
 api('/artikel/').then(d=>{artikelCache=d;artikelAll=d;});

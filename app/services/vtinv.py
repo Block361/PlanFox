@@ -91,7 +91,7 @@ def artikel_zu_dict(artikel: Artikel) -> dict:
         "ist_adapter", "leistung_w", "spannung_v", "impedanz_ohm",
         "kabeltyp", "anzahl_kanaele", "schutzklasse_ip", "gewicht_kg",
         "hersteller", "modell", "farbe", "kaufdatum", "garantie_bis",
-        "wartungshinweis", "erstellt_am", "aktualisiert_am",
+        "wartungshinweis", "externe_id", "erstellt_am", "aktualisiert_am",
     ]
     d = {f: _serialize(getattr(artikel, f, None)) for f in felder}
     d["kategorie"] = artikel.kategorie.name if artikel.kategorie else None
@@ -157,7 +157,19 @@ def import_vtinv(db: Session, data: bytes, ueberschreiben: bool = False) -> dict
 
         # Jeder Artikel in eigener Transaktion – Fehler isolieren
         try:
-            existierend = db.query(Artikel).filter(Artikel.name == name).first()
+            # Match-Strategie: zuerst per externe_id (ID aus Datei), dann per Name
+            externe_id = str(eintrag["id"]) if eintrag.get("id") is not None else None
+            existierend = None
+            if externe_id:
+                existierend = db.query(Artikel).filter(
+                    Artikel.externe_id == externe_id
+                ).first()
+            if not existierend:
+                # Fallback: Name-Match nur wenn keine externe_id gesetzt
+                existierend = db.query(Artikel).filter(
+                    Artikel.name == name,
+                    Artikel.externe_id == None
+                ).first()
 
             if existierend and not ueberschreiben:
                 stats["uebersprungen"] += 1
@@ -193,34 +205,45 @@ def import_vtinv(db: Session, data: bytes, ueberschreiben: bool = False) -> dict
                 kaufdatum=_parse_date(eintrag.get("kaufdatum")),
                 garantie_bis=_parse_date(eintrag.get("garantie_bis")),
                 wartungshinweis=eintrag.get("wartungshinweis"),
+                externe_id=externe_id,
             )
 
             if existierend:
                 for k, v in felder.items():
                     setattr(existierend, k, v)
                 artikel = existierend
+                db.flush()
                 stats["aktualisiert"] += 1
             else:
                 artikel = Artikel(**felder)
                 db.add(artikel)
-                db.flush()  # ID vergeben ohne commit
+                db.flush()
                 stats["neu"] += 1
 
             # Einheiten importieren
-            for ed in eintrag.get("einheiten", []):
-                sn = (ed.get("seriennummer") or "").strip()
-                if not sn:
-                    continue
-                exists = db.query(ArtikelEinheit).filter(
-                    ArtikelEinheit.seriennummer == sn
-                ).first()
-                if not exists:
+            einheiten_data = eintrag.get("einheiten", [])
+            if einheiten_data:
+                # Bestehende SN dieses Artikels
+                bestehende_sn = {
+                    e.seriennummer for e in db.query(ArtikelEinheit)
+                    .filter(ArtikelEinheit.artikel_id == artikel.id).all()
+                }
+                # SN die anderen Artikeln gehören (Unique-Konflikt vermeiden)
+                fremde_sn = {
+                    e.seriennummer for e in db.query(ArtikelEinheit)
+                    .filter(ArtikelEinheit.artikel_id != artikel.id).all()
+                }
+                for ed in einheiten_data:
+                    sn = (ed.get("seriennummer") or "").strip()
+                    if not sn or sn in bestehende_sn or sn in fremde_sn:
+                        continue
                     db.add(ArtikelEinheit(
                         artikel_id=artikel.id,
                         seriennummer=sn,
                         zustand=_parse_zustand(ed.get("zustand")),
                         notizen=ed.get("notizen"),
                     ))
+                    bestehende_sn.add(sn)
 
             # Einzel-Commit pro Artikel – kein Rollback aller anderen bei Fehler
             db.commit()

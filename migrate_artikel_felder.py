@@ -53,3 +53,19 @@ def migrate():
 
 if __name__ == "__main__":
     migrate()
+
+
+def migrate_externe_id():
+    """externe_id Spalte für Import-Matching hinzufügen."""
+    with engine.connect() as conn:
+        if not spalte_existiert(conn, "artikel", "externe_id"):
+            conn.execute(text("ALTER TABLE artikel ADD COLUMN externe_id VARCHAR(100)"))
+            conn.execute(text("CREATE INDEX IF NOT EXISTS ix_artikel_externe_id ON artikel(externe_id)"))
+            conn.commit()
+            print("  ✓  externe_id hinzugefügt")
+        else:
+            print("  ⏭  externe_id existiert bereits")
+
+if __name__ == "__main__":
+    migrate()
+    migrate_externe_id()

@@ -66,7 +66,8 @@ class Artikel(Base):
     farbe = Column(String(100), nullable=True)               # z.B. "schwarz", "rot (Rücklauf)"
     kaufdatum = Column(Date, nullable=True)
     garantie_bis = Column(Date, nullable=True)
-    wartungshinweis = Column(Text, nullable=True)            # z.B. "Stecker jährlich prüfen"
+    wartungshinweis = Column(Text, nullable=True)
+    externe_id = Column(String(100), nullable=True, index=True)  # Import-ID aus externer Quelle
 
     erstellt_am = Column(DateTime, default=datetime.utcnow)
     aktualisiert_am = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

@@ -1,0 +1,2841 @@
+{
+  "__vtinv__": "1.0",
+  "erstellt_am": "2026-03-19T12:43:09.567442",
+  "quelle": "VT-Generator",
+  "anzahl": 41,
+  "artikel": [
+    {
+      "id": 1,
+      "name": "XLR Kabel 3m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 18,
+      "menge_verfuegbar": 18,
+      "zustand": "gebraucht",
+      "lagerort": "Kabelregal A",
+      "anschaffungswert": 10.23,
+      "laenge_m": 3,
+      "stecker_a": "XLR-M",
+      "stecker_b": "XLR-F",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "symmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2021-01-31",
+      "garantie_bis": "2022-01-26",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566813",
+      "aktualisiert_am": "2026-03-19T12:43:09.566821",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "XLR3-001-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-002",
+          "zustand": "beschaedigt",
+          "notizen": "Stecker leicht verbogen"
+        },
+        {
+          "seriennummer": "XLR3-001-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-009",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-010",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-011",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-012",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-013",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-014",
+          "zustand": "beschaedigt",
+          "notizen": "Isolierung angebrochen"
+        },
+        {
+          "seriennummer": "XLR3-001-015",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-016",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-017",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR3-001-018",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "XLR Kabel 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 13,
+      "menge_verfuegbar": 13,
+      "zustand": "gebraucht",
+      "lagerort": "Kabelregal A",
+      "anschaffungswert": 20.17,
+      "laenge_m": 5,
+      "stecker_a": "XLR-M",
+      "stecker_b": "XLR-F",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "symmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-02-01",
+      "garantie_bis": "2021-01-21",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566865",
+      "aktualisiert_am": "2026-03-19T12:43:09.566865",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "XLR5-002-001",
+          "zustand": "beschaedigt",
+          "notizen": "Knick am Stecker"
+        },
+        {
+          "seriennummer": "XLR5-002-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-003",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "XLR5-002-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-006",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-007",
+          "zustand": "beschaedigt",
+          "notizen": "Buchse wackelt"
+        },
+        {
+          "seriennummer": "XLR5-002-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-009",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-010",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-011",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-012",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR5-002-013",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "XLR Kabel 10m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 9,
+      "menge_verfuegbar": 7,
+      "zustand": "gut",
+      "lagerort": "Kabelregal A",
+      "anschaffungswert": 20.35,
+      "laenge_m": 10,
+      "stecker_a": "XLR-M",
+      "stecker_b": "XLR-F",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "symmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Sommer Cable",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-04-06",
+      "garantie_bis": "2024-03-26",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566892",
+      "aktualisiert_am": "2026-03-19T12:43:09.566893",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "XLR10-003-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-006",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-008",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR10-003-009",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "XLR Kabel 20m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 7,
+      "menge_verfuegbar": 6,
+      "zustand": "gut",
+      "lagerort": "Kabelregal A",
+      "anschaffungswert": 33.69,
+      "laenge_m": 20,
+      "stecker_a": "XLR-M",
+      "stecker_b": "XLR-F",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "symmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Sommer Cable",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2024-03-31",
+      "garantie_bis": "2025-03-26",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566911",
+      "aktualisiert_am": "2026-03-19T12:43:09.566912",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "XLR20-004-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR20-004-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR20-004-003",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR20-004-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR20-004-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR20-004-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XLR20-004-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Klinke 6.3mm Kabel 3m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 9,
+      "menge_verfuegbar": 9,
+      "zustand": "gut",
+      "lagerort": "Kabelregal A",
+      "anschaffungswert": 13.08,
+      "laenge_m": 3,
+      "stecker_a": "Klinke 6.3mm TRS",
+      "stecker_b": "Klinke 6.3mm TRS",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "symmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2023-08-07",
+      "garantie_bis": "2025-07-27",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566926",
+      "aktualisiert_am": "2026-03-19T12:43:09.566926",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "KLK3-005-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-008",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KLK3-005-009",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Klinke 6.3mm auf XLR Adapter",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 4,
+      "zustand": "gut",
+      "lagerort": "Adapterbox",
+      "anschaffungswert": 11.03,
+      "laenge_m": null,
+      "stecker_a": "Klinke 6.3mm TS",
+      "stecker_b": "XLR-F",
+      "ist_adapter": true,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "unsymmetrisch",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Neutrik",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-01-08",
+      "garantie_bis": "2020-01-03",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566945",
+      "aktualisiert_am": "2026-03-19T12:43:09.566945",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "KXA-006-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KXA-006-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KXA-006-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KXA-006-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KXA-006-005",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "XLR auf Klinke 6.3mm Adapter",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 7,
+      "menge_verfuegbar": 6,
+      "zustand": "gut",
+      "lagerort": "Adapterbox",
+      "anschaffungswert": 9.76,
+      "laenge_m": null,
+      "stecker_a": "XLR-M",
+      "stecker_b": "Klinke 6.3mm TS",
+      "ist_adapter": true,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "unsymmetrisch",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Neutrik",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2024-03-16",
+      "garantie_bis": "2025-03-11",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566958",
+      "aktualisiert_am": "2026-03-19T12:43:09.566958",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "XKA-007-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XKA-007-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XKA-007-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XKA-007-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XKA-007-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XKA-007-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "XKA-007-007",
+          "zustand": "neu",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Cinch Stereo Kabel 1m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 8,
+      "menge_verfuegbar": 6,
+      "zustand": "gebraucht",
+      "lagerort": "Kabelregal A",
+      "anschaffungswert": 8.57,
+      "laenge_m": 1,
+      "stecker_a": "Cinch (RCA)",
+      "stecker_b": "Cinch (RCA)",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "unsymmetrisch",
+      "anzahl_kanaele": 2,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz/rot",
+      "kaufdatum": "2020-12-14",
+      "garantie_bis": "2023-11-29",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566971",
+      "aktualisiert_am": "2026-03-19T12:43:09.566972",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "CIN1-008-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CIN1-008-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CIN1-008-003",
+          "zustand": "beschaedigt",
+          "notizen": "Kontaktkorrosion"
+        },
+        {
+          "seriennummer": "CIN1-008-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CIN1-008-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CIN1-008-006",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CIN1-008-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CIN1-008-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Speakon Lautsprecherkabel 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 12,
+      "menge_verfuegbar": 6,
+      "zustand": "gut",
+      "lagerort": "Kabelregal B",
+      "anschaffungswert": 18.35,
+      "laenge_m": 5,
+      "stecker_a": "Speakon NL4",
+      "stecker_b": "Speakon NL4",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": 4,
+      "kabeltyp": "unsymmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2024-09-19",
+      "garantie_bis": "2026-09-09",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.566987",
+      "aktualisiert_am": "2026-03-19T12:43:09.566988",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "SPK5-009-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-007",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-008",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-009",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-010",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-011",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK5-009-012",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Speakon Lautsprecherkabel 10m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 8,
+      "menge_verfuegbar": 7,
+      "zustand": "gut",
+      "lagerort": "Kabelregal B",
+      "anschaffungswert": 22.51,
+      "laenge_m": 10,
+      "stecker_a": "Speakon NL4",
+      "stecker_b": "Speakon NL4",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": 4,
+      "kabeltyp": "unsymmetrisch",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2024-03-01",
+      "garantie_bis": "2025-02-24",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567007",
+      "aktualisiert_am": "2026-03-19T12:43:09.567008",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "SPK10-010-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SPK10-010-008",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Multicore 12/4 30m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 2,
+      "menge_verfuegbar": 2,
+      "zustand": "neu",
+      "lagerort": "Stagebox-Lager",
+      "anschaffungswert": 222.14,
+      "laenge_m": 30,
+      "stecker_a": "Multipin",
+      "stecker_b": "XLR-M/F",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "symmetrisch",
+      "anzahl_kanaele": 16,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Sommer Cable",
+      "modell": null,
+      "farbe": "grau",
+      "kaufdatum": "2023-01-24",
+      "garantie_bis": "2024-01-19",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567022",
+      "aktualisiert_am": "2026-03-19T12:43:09.567022",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "MC12-011-001",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MC12-011-002",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "DI-Box passiv",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 8,
+      "menge_verfuegbar": 8,
+      "zustand": "gut",
+      "lagerort": "Audiokoffer",
+      "anschaffungswert": 47.09,
+      "laenge_m": null,
+      "stecker_a": "Klinke 6.3mm",
+      "stecker_b": "XLR-M",
+      "ist_adapter": true,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": 10000,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "the t.bone",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2018-10-18",
+      "garantie_bis": "2021-10-02",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567031",
+      "aktualisiert_am": "2026-03-19T12:43:09.567031",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "DIP-012-001",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "DIP-012-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIP-012-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIP-012-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIP-012-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIP-012-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIP-012-007",
+          "zustand": "reparatur",
+          "notizen": "Wartet auf Ersatzteil"
+        },
+        {
+          "seriennummer": "DIP-012-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "DI-Box aktiv",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 3,
+      "menge_verfuegbar": 1,
+      "zustand": "gut",
+      "lagerort": "Audiokoffer",
+      "anschaffungswert": 68.49,
+      "laenge_m": null,
+      "stecker_a": "Klinke 6.3mm",
+      "stecker_b": "XLR-M",
+      "ist_adapter": true,
+      "leistung_w": null,
+      "spannung_v": 48,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Radial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-07-26",
+      "garantie_bis": "2023-07-21",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567048",
+      "aktualisiert_am": "2026-03-19T12:43:09.567049",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "DIA-013-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIA-013-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DIA-013-003",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Stagebox 16/4",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 1,
+      "menge_verfuegbar": 0,
+      "zustand": "gut",
+      "lagerort": "Stagebox-Lager",
+      "anschaffungswert": 300.66,
+      "laenge_m": null,
+      "stecker_a": "XLR",
+      "stecker_b": "Multipin",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": 20,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Adam Hall",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-02-08",
+      "garantie_bis": "2020-02-03",
+      "wartungshinweis": "Buchsen jährlich auf Korrosion prüfen",
+      "erstellt_am": "2026-03-19T12:43:09.567059",
+      "aktualisiert_am": "2026-03-19T12:43:09.567059",
+      "kategorie": "Audio",
+      "einheiten": [
+        {
+          "seriennummer": "SB16-014-001",
+          "zustand": "beschaedigt",
+          "notizen": "Isolierung angebrochen"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Mikrofon Stativ groß",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 9,
+      "menge_verfuegbar": 9,
+      "zustand": "gut",
+      "lagerort": "Stativlager",
+      "anschaffungswert": 30.55,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": 2.4,
+      "hersteller": "König & Meyer",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2023-01-12",
+      "garantie_bis": "2024-01-07",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567067",
+      "aktualisiert_am": "2026-03-19T12:43:09.567068",
+      "kategorie": "Zubehör",
+      "einheiten": [
+        {
+          "seriennummer": "MST-015-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-006",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-008",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MST-015-009",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Mikrofon Tischstativ",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 10,
+      "menge_verfuegbar": 7,
+      "zustand": "gut",
+      "lagerort": "Stativlager",
+      "anschaffungswert": 13.83,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": 0.6,
+      "hersteller": "König & Meyer",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-11-13",
+      "garantie_bis": "2021-11-02",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567083",
+      "aktualisiert_am": "2026-03-19T12:43:09.567083",
+      "kategorie": "Zubehör",
+      "einheiten": [
+        {
+          "seriennummer": "MTS-016-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-004",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "MTS-016-005",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "MTS-016-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-009",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MTS-016-010",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "DMX Kabel 3m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 15,
+      "menge_verfuegbar": 15,
+      "zustand": "gebraucht",
+      "lagerort": "Kabelregal B",
+      "anschaffungswert": 13.75,
+      "laenge_m": 3,
+      "stecker_a": "XLR-M 5-pol",
+      "stecker_b": "XLR-F 5-pol",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": 110,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2021-04-30",
+      "garantie_bis": "2022-04-25",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567101",
+      "aktualisiert_am": "2026-03-19T12:43:09.567101",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "DMX3-017-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-005",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-006",
+          "zustand": "beschaedigt",
+          "notizen": "Isolierung angebrochen"
+        },
+        {
+          "seriennummer": "DMX3-017-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-009",
+          "zustand": "beschaedigt",
+          "notizen": "Stecker leicht verbogen"
+        },
+        {
+          "seriennummer": "DMX3-017-010",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-011",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-012",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-013",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX3-017-014",
+          "zustand": "beschaedigt",
+          "notizen": "Isolierung angebrochen"
+        },
+        {
+          "seriennummer": "DMX3-017-015",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "DMX Kabel 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 6,
+      "menge_verfuegbar": 5,
+      "zustand": "gut",
+      "lagerort": "Kabelregal B",
+      "anschaffungswert": 13.84,
+      "laenge_m": 5,
+      "stecker_a": "XLR-M 5-pol",
+      "stecker_b": "XLR-F 5-pol",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": 110,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Cordial",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-09-14",
+      "garantie_bis": "2025-08-29",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567124",
+      "aktualisiert_am": "2026-03-19T12:43:09.567124",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "DMX5-018-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX5-018-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX5-018-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX5-018-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX5-018-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX5-018-006",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "DMX Kabel 10m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 6,
+      "menge_verfuegbar": 5,
+      "zustand": "reparatur",
+      "lagerort": "Kabelregal B",
+      "anschaffungswert": 17.5,
+      "laenge_m": 10,
+      "stecker_a": "XLR-M 5-pol",
+      "stecker_b": "XLR-F 5-pol",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": 110,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": 1,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Sommer Cable",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2018-10-25",
+      "garantie_bis": "2019-10-20",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567137",
+      "aktualisiert_am": "2026-03-19T12:43:09.567137",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "DMX10-019-001",
+          "zustand": "reparatur",
+          "notizen": "Zur Reparatur bei Techniker"
+        },
+        {
+          "seriennummer": "DMX10-019-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX10-019-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX10-019-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX10-019-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "DMX10-019-006",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "DMX 3-pol auf 5-pol Adapter",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 4,
+      "zustand": "gebraucht",
+      "lagerort": "Adapterbox",
+      "anschaffungswert": 11.0,
+      "laenge_m": null,
+      "stecker_a": "XLR-M 3-pol",
+      "stecker_b": "XLR-F 5-pol",
+      "ist_adapter": true,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Neutrik",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-10-09",
+      "garantie_bis": "2021-09-28",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567150",
+      "aktualisiert_am": "2026-03-19T12:43:09.567151",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "D35-020-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "D35-020-002",
+          "zustand": "reparatur",
+          "notizen": "Wartet auf Ersatzteil"
+        },
+        {
+          "seriennummer": "D35-020-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "D35-020-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "D35-020-005",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "LED PAR Scheinwerfer RGBW",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 3,
+      "zustand": "gut",
+      "lagerort": "Lichtcase",
+      "anschaffungswert": 70.39,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": 36,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP20",
+      "gewicht_kg": 1.8,
+      "hersteller": "Cameo",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-07-05",
+      "garantie_bis": "2021-06-24",
+      "wartungshinweis": "LED-Modul nach 50.000h tauschen",
+      "erstellt_am": "2026-03-19T12:43:09.567162",
+      "aktualisiert_am": "2026-03-19T12:43:09.567162",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "PAR-021-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PAR-021-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PAR-021-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PAR-021-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PAR-021-005",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "LED Moving Head Spot",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 4,
+      "menge_verfuegbar": 3,
+      "zustand": "gut",
+      "lagerort": "Lichtcase",
+      "anschaffungswert": 346.15,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": 60,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP20",
+      "gewicht_kg": 5.5,
+      "hersteller": "Cameo",
+      "modell": null,
+      "farbe": "weiß",
+      "kaufdatum": "2020-10-25",
+      "garantie_bis": "2021-10-20",
+      "wartungshinweis": "Gobos halbjährlich prüfen, Lüfter reinigen",
+      "erstellt_am": "2026-03-19T12:43:09.567173",
+      "aktualisiert_am": "2026-03-19T12:43:09.567174",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "MHD-022-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MHD-022-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MHD-022-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "MHD-022-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Followspot 150W",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 2,
+      "menge_verfuegbar": 2,
+      "zustand": "gut",
+      "lagerort": "Lichtcase",
+      "anschaffungswert": 752.83,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": 150,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": 8.2,
+      "hersteller": "Eurolite",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-12-15",
+      "garantie_bis": "2025-11-29",
+      "wartungshinweis": "Lampe nach 750h tauschen",
+      "erstellt_am": "2026-03-19T12:43:09.567183",
+      "aktualisiert_am": "2026-03-19T12:43:09.567184",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "FSP-023-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "FSP-023-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Lichtstativ groß",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 4,
+      "zustand": "gut",
+      "lagerort": "Stativlager",
+      "anschaffungswert": 59.86,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": 4.5,
+      "hersteller": "Adam Hall",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-02-21",
+      "garantie_bis": "2025-02-05",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567194",
+      "aktualisiert_am": "2026-03-19T12:43:09.567194",
+      "kategorie": "Licht",
+      "einheiten": [
+        {
+          "seriennummer": "LST-024-001",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LST-024-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LST-024-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LST-024-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LST-024-005",
+          "zustand": "neu",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Schuko Verlängerung 10m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 9,
+      "menge_verfuegbar": 9,
+      "zustand": "gebraucht",
+      "lagerort": "Stromkiste",
+      "anschaffungswert": 16.54,
+      "laenge_m": 10,
+      "stecker_a": "Schuko",
+      "stecker_b": "Schuko-Kupplung",
+      "ist_adapter": false,
+      "leistung_w": 3500,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP20",
+      "gewicht_kg": null,
+      "hersteller": "Brennenstuhl",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2020-10-19",
+      "garantie_bis": "2023-10-04",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567205",
+      "aktualisiert_am": "2026-03-19T12:43:09.567206",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "SCH10-025-001",
+          "zustand": "beschaedigt",
+          "notizen": "Knick am Stecker"
+        },
+        {
+          "seriennummer": "SCH10-025-002",
+          "zustand": "reparatur",
+          "notizen": "Wartet auf Ersatzteil"
+        },
+        {
+          "seriennummer": "SCH10-025-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SCH10-025-004",
+          "zustand": "reparatur",
+          "notizen": "Zur Reparatur bei Techniker"
+        },
+        {
+          "seriennummer": "SCH10-025-005",
+          "zustand": "reparatur",
+          "notizen": "Zur Reparatur bei Techniker"
+        },
+        {
+          "seriennummer": "SCH10-025-006",
+          "zustand": "beschaedigt",
+          "notizen": "Stecker leicht verbogen"
+        },
+        {
+          "seriennummer": "SCH10-025-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SCH10-025-008",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "SCH10-025-009",
+          "zustand": "beschaedigt",
+          "notizen": "Isolierung angebrochen"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Schuko Verlängerung 20m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 5,
+      "zustand": "beschaedigt",
+      "lagerort": "Stromkiste",
+      "anschaffungswert": 42.44,
+      "laenge_m": 20,
+      "stecker_a": "Schuko",
+      "stecker_b": "Schuko-Kupplung",
+      "ist_adapter": false,
+      "leistung_w": 3500,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP20",
+      "gewicht_kg": null,
+      "hersteller": "Brennenstuhl",
+      "modell": null,
+      "farbe": "orange",
+      "kaufdatum": "2019-03-19",
+      "garantie_bis": "2021-03-08",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567223",
+      "aktualisiert_am": "2026-03-19T12:43:09.567223",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "SCH20-026-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SCH20-026-002",
+          "zustand": "beschaedigt",
+          "notizen": "Knick am Stecker"
+        },
+        {
+          "seriennummer": "SCH20-026-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "SCH20-026-004",
+          "zustand": "beschaedigt",
+          "notizen": "Isolierung angebrochen"
+        },
+        {
+          "seriennummer": "SCH20-026-005",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "name": "PowerCON Kabel 2m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 16,
+      "menge_verfuegbar": 16,
+      "zustand": "reparatur",
+      "lagerort": "Stromkiste",
+      "anschaffungswert": 20.64,
+      "laenge_m": 2,
+      "stecker_a": "PowerCON TRUE1",
+      "stecker_b": "PowerCON TRUE1",
+      "ist_adapter": false,
+      "leistung_w": 2300,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP65",
+      "gewicht_kg": null,
+      "hersteller": "Adam Hall",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2021-09-06",
+      "garantie_bis": "2023-08-27",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567234",
+      "aktualisiert_am": "2026-03-19T12:43:09.567235",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "PWC2-027-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-004",
+          "zustand": "reparatur",
+          "notizen": "Wartet auf Ersatzteil"
+        },
+        {
+          "seriennummer": "PWC2-027-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-007",
+          "zustand": "beschaedigt",
+          "notizen": "Buchse wackelt"
+        },
+        {
+          "seriennummer": "PWC2-027-008",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-009",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "PWC2-027-010",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-011",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-012",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-013",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-014",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC2-027-015",
+          "zustand": "reparatur",
+          "notizen": "Zur Reparatur bei Techniker"
+        },
+        {
+          "seriennummer": "PWC2-027-016",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "name": "PowerCON Kabel 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 7,
+      "menge_verfuegbar": 7,
+      "zustand": "gut",
+      "lagerort": "Stromkiste",
+      "anschaffungswert": 23.28,
+      "laenge_m": 5,
+      "stecker_a": "PowerCON TRUE1",
+      "stecker_b": "PowerCON TRUE1",
+      "ist_adapter": false,
+      "leistung_w": 2300,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP65",
+      "gewicht_kg": null,
+      "hersteller": "Adam Hall",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-11-22",
+      "garantie_bis": "2023-11-17",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567260",
+      "aktualisiert_am": "2026-03-19T12:43:09.567260",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "PWC5-028-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC5-028-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC5-028-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC5-028-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC5-028-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC5-028-006",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PWC5-028-007",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "PowerCON auf Schuko Adapter",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 8,
+      "menge_verfuegbar": 8,
+      "zustand": "gebraucht",
+      "lagerort": "Adapterbox",
+      "anschaffungswert": 19.0,
+      "laenge_m": null,
+      "stecker_a": "PowerCON TRUE1",
+      "stecker_b": "Schuko-Kupplung",
+      "ist_adapter": true,
+      "leistung_w": 2300,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Neutrik",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2019-05-26",
+      "garantie_bis": "2022-05-10",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567274",
+      "aktualisiert_am": "2026-03-19T12:43:09.567274",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "PSA-029-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-006",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "PSA-029-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "name": "CEE 16A Verlängerung 10m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 3,
+      "menge_verfuegbar": 2,
+      "zustand": "gut",
+      "lagerort": "Stromkiste",
+      "anschaffungswert": 54.18,
+      "laenge_m": 10,
+      "stecker_a": "CEE 16A 5-pol",
+      "stecker_b": "CEE 16A 5-pol",
+      "ist_adapter": false,
+      "leistung_w": 11000,
+      "spannung_v": 400,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP44",
+      "gewicht_kg": null,
+      "hersteller": "PCE",
+      "modell": null,
+      "farbe": "blau",
+      "kaufdatum": "2021-05-17",
+      "garantie_bis": "2023-05-07",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567289",
+      "aktualisiert_am": "2026-03-19T12:43:09.567290",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "CEE10-030-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CEE10-030-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "CEE10-030-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Verteilerdose 6-fach",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 4,
+      "menge_verfuegbar": 3,
+      "zustand": "gut",
+      "lagerort": "Stromkiste",
+      "anschaffungswert": 25.34,
+      "laenge_m": null,
+      "stecker_a": "Schuko",
+      "stecker_b": "6x Schuko",
+      "ist_adapter": false,
+      "leistung_w": 3500,
+      "spannung_v": 230,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Brennenstuhl",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-12-17",
+      "garantie_bis": "2025-12-01",
+      "wartungshinweis": "Sicherung bei Defekt prüfen",
+      "erstellt_am": "2026-03-19T12:43:09.567298",
+      "aktualisiert_am": "2026-03-19T12:43:09.567299",
+      "kategorie": "Strom",
+      "einheiten": [
+        {
+          "seriennummer": "VTL-031-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VTL-031-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VTL-031-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VTL-031-004",
+          "zustand": "neu",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "name": "HDMI Kabel 2m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 8,
+      "menge_verfuegbar": 6,
+      "zustand": "gebraucht",
+      "lagerort": "Videokiste",
+      "anschaffungswert": 8.93,
+      "laenge_m": 2,
+      "stecker_a": "HDMI-A",
+      "stecker_b": "HDMI-A",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2024-12-11",
+      "garantie_bis": "2026-12-01",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567308",
+      "aktualisiert_am": "2026-03-19T12:43:09.567309",
+      "kategorie": "Video",
+      "einheiten": [
+        {
+          "seriennummer": "HDM2-032-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-005",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-006",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM2-032-008",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "HDMI Kabel 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 6,
+      "menge_verfuegbar": 5,
+      "zustand": "gut",
+      "lagerort": "Videokiste",
+      "anschaffungswert": 21.34,
+      "laenge_m": 5,
+      "stecker_a": "HDMI-A",
+      "stecker_b": "HDMI-A",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2024-06-15",
+      "garantie_bis": "2025-06-10",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567323",
+      "aktualisiert_am": "2026-03-19T12:43:09.567324",
+      "kategorie": "Video",
+      "einheiten": [
+        {
+          "seriennummer": "HDM5-033-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM5-033-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM5-033-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM5-033-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM5-033-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDM5-033-006",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "HDMI auf DisplayPort Adapter",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 5,
+      "zustand": "gut",
+      "lagerort": "Adapterbox",
+      "anschaffungswert": 10.5,
+      "laenge_m": null,
+      "stecker_a": "HDMI-A",
+      "stecker_b": "DisplayPort",
+      "ist_adapter": true,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2023-10-23",
+      "garantie_bis": "2025-10-12",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567336",
+      "aktualisiert_am": "2026-03-19T12:43:09.567336",
+      "kategorie": "Video",
+      "einheiten": [
+        {
+          "seriennummer": "HDA-034-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDA-034-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDA-034-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDA-034-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "HDA-034-005",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "name": "VGA Kabel 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 6,
+      "menge_verfuegbar": 6,
+      "zustand": "gut",
+      "lagerort": "Videokiste",
+      "anschaffungswert": 12.52,
+      "laenge_m": 5,
+      "stecker_a": "VGA-M",
+      "stecker_b": "VGA-M",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "analog",
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2022-12-18",
+      "garantie_bis": "2025-12-02",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567348",
+      "aktualisiert_am": "2026-03-19T12:43:09.567348",
+      "kategorie": "Video",
+      "einheiten": [
+        {
+          "seriennummer": "VGA5-035-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VGA5-035-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VGA5-035-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VGA5-035-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VGA5-035-005",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "VGA5-035-006",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "LAN Kabel Cat6 5m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 18,
+      "menge_verfuegbar": 18,
+      "zustand": "gut",
+      "lagerort": "Netzwerkbox",
+      "anschaffungswert": 6.91,
+      "laenge_m": 5,
+      "stecker_a": "RJ45",
+      "stecker_b": "RJ45",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": 8,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "blau",
+      "kaufdatum": "2021-02-09",
+      "garantie_bis": "2024-01-25",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567360",
+      "aktualisiert_am": "2026-03-19T12:43:09.567361",
+      "kategorie": "Netzwerk",
+      "einheiten": [
+        {
+          "seriennummer": "LAN5-036-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-004",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-005",
+          "zustand": "beschaedigt",
+          "notizen": "Stecker leicht verbogen"
+        },
+        {
+          "seriennummer": "LAN5-036-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-008",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-009",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-010",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-011",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-012",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-013",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-014",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-015",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN5-036-016",
+          "zustand": "reparatur",
+          "notizen": "Wartet auf Ersatzteil"
+        },
+        {
+          "seriennummer": "LAN5-036-017",
+          "zustand": "reparatur",
+          "notizen": "Zur Reparatur bei Techniker"
+        },
+        {
+          "seriennummer": "LAN5-036-018",
+          "zustand": "beschaedigt",
+          "notizen": "Kontaktkorrosion"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "LAN Kabel Cat6 10m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 10,
+      "menge_verfuegbar": 9,
+      "zustand": "beschaedigt",
+      "lagerort": "Netzwerkbox",
+      "anschaffungswert": 12.03,
+      "laenge_m": 10,
+      "stecker_a": "RJ45",
+      "stecker_b": "RJ45",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": 8,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "blau",
+      "kaufdatum": "2021-12-11",
+      "garantie_bis": "2023-12-01",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567388",
+      "aktualisiert_am": "2026-03-19T12:43:09.567388",
+      "kategorie": "Netzwerk",
+      "einheiten": [
+        {
+          "seriennummer": "LAN10-037-001",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "LAN10-037-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-003",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-004",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-005",
+          "zustand": "beschaedigt",
+          "notizen": "Knick am Stecker"
+        },
+        {
+          "seriennummer": "LAN10-037-006",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-007",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-008",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-009",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN10-037-010",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "name": "LAN Kabel Cat6 20m",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 3,
+      "zustand": "gut",
+      "lagerort": "Netzwerkbox",
+      "anschaffungswert": 21.77,
+      "laenge_m": 20,
+      "stecker_a": "RJ45",
+      "stecker_b": "RJ45",
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": "digital",
+      "anzahl_kanaele": 8,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "Delock",
+      "modell": null,
+      "farbe": "blau",
+      "kaufdatum": "2023-03-30",
+      "garantie_bis": "2024-03-24",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567405",
+      "aktualisiert_am": "2026-03-19T12:43:09.567405",
+      "kategorie": "Netzwerk",
+      "einheiten": [
+        {
+          "seriennummer": "LAN20-038-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN20-038-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN20-038-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN20-038-004",
+          "zustand": "neu",
+          "notizen": null
+        },
+        {
+          "seriennummer": "LAN20-038-005",
+          "zustand": "gut",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Network Switch 8-Port",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 2,
+      "menge_verfuegbar": 2,
+      "zustand": "gut",
+      "lagerort": "Netzwerkbox",
+      "anschaffungswert": 46.37,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": 15,
+      "spannung_v": 12,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": 8,
+      "schutzklasse_ip": null,
+      "gewicht_kg": null,
+      "hersteller": "TP-Link",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2020-12-01",
+      "garantie_bis": "2022-11-21",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567417",
+      "aktualisiert_am": "2026-03-19T12:43:09.567417",
+      "kategorie": "Netzwerk",
+      "einheiten": [
+        {
+          "seriennummer": "NSW-039-001",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "NSW-039-002",
+          "zustand": "beschaedigt",
+          "notizen": "Buchse wackelt"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "name": "Flightcase 19 Zoll 4HE",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 5,
+      "menge_verfuegbar": 5,
+      "zustand": "gebraucht",
+      "lagerort": "Stativlager",
+      "anschaffungswert": 153.88,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": "IP54",
+      "gewicht_kg": 8.5,
+      "hersteller": "Adam Hall",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2018-12-02",
+      "garantie_bis": "2020-11-21",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567425",
+      "aktualisiert_am": "2026-03-19T12:43:09.567426",
+      "kategorie": "Transport",
+      "einheiten": [
+        {
+          "seriennummer": "FC4-040-001",
+          "zustand": "reparatur",
+          "notizen": "Stecker muss gelötet werden"
+        },
+        {
+          "seriennummer": "FC4-040-002",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "FC4-040-003",
+          "zustand": "gut",
+          "notizen": null
+        },
+        {
+          "seriennummer": "FC4-040-004",
+          "zustand": "reparatur",
+          "notizen": "Zur Reparatur bei Techniker"
+        },
+        {
+          "seriennummer": "FC4-040-005",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Kabelkoffer groß",
+      "seriennummer": null,
+      "beschreibung": null,
+      "menge_gesamt": 2,
+      "menge_verfuegbar": 2,
+      "zustand": "gut",
+      "lagerort": "Stativlager",
+      "anschaffungswert": 69.14,
+      "laenge_m": null,
+      "stecker_a": null,
+      "stecker_b": null,
+      "ist_adapter": false,
+      "leistung_w": null,
+      "spannung_v": null,
+      "impedanz_ohm": null,
+      "kabeltyp": null,
+      "anzahl_kanaele": null,
+      "schutzklasse_ip": null,
+      "gewicht_kg": 3.2,
+      "hersteller": "Zarges",
+      "modell": null,
+      "farbe": "schwarz",
+      "kaufdatum": "2018-03-25",
+      "garantie_bis": "2021-03-09",
+      "wartungshinweis": null,
+      "erstellt_am": "2026-03-19T12:43:09.567438",
+      "aktualisiert_am": "2026-03-19T12:43:09.567439",
+      "kategorie": "Transport",
+      "einheiten": [
+        {
+          "seriennummer": "KKG-041-001",
+          "zustand": "gebraucht",
+          "notizen": null
+        },
+        {
+          "seriennummer": "KKG-041-002",
+          "zustand": "gebraucht",
+          "notizen": null
+        }
+      ]
+    }
+  ]
+}

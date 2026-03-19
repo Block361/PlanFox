@@ -6,6 +6,7 @@ import os
 from app.config import settings
 from app.api.routers import artikel, ausleihe, jobs, einheiten
 from app.api.routers import io as io_router
+from app.api.routers import scan
 
 app = FastAPI(
     title=settings.app_name,
@@ -25,6 +26,7 @@ app.include_router(ausleihe.router, prefix="/api/v1")
 app.include_router(jobs.router, prefix="/api/v1")
 app.include_router(einheiten.router, prefix="/api/v1")
 app.include_router(io_router.router, prefix="/api/v1")
+app.include_router(scan.router, prefix="/api/v1")
 
 _static = os.path.join(os.path.dirname(__file__), "static")
 if os.path.isdir(_static):
